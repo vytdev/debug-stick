@@ -27,9 +27,7 @@ This is tested and working properly with Minecraft: Bedrock Edition 1.20.10
 
 ### Limitations
 
-I've also encountered some bugs while developing the add-on:
-
-- Some block properties like in Java are not available
+- Some block properties from Minecraft Java are not available
 
 ### Contributing
 
