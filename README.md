@@ -8,8 +8,9 @@ Like in Java, you can do:
 
 - Change block properties
 - Update property values
-- See messages on actionbar like in Minecraft Java
-- Tested and working properly with Minecraft: Bedrock Edition 1.20.01
+- See messages on actionbar
+
+This is tested and working properly with Minecraft: Bedrock Edition 1.20.10
 
 ### How to get
 
@@ -29,9 +30,6 @@ Like in Java, you can do:
 I've also encountered some bugs while developing the add-on:
 
 - Some block properties like in Java are not available
-- Since the add-on listens for block breaks event, some blocks when breaked do
-  their expected behaviour. It will be fixed once the `EntityHitBlockAfterEvent`
-  were available.
 
 ### Contributing
 
