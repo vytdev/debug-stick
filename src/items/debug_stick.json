@@ -13,8 +13,7 @@
                 "value": "§dDebug Stick§r"
             },
             "minecraft:max_stack_size": 1,
-            /* this will be implemented soon */
-            //"minecraft:can_destroy_in_creative": false,
+            "minecraft:can_destroy_in_creative": false,
             "minecraft:foil": true
         }
     }

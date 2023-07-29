@@ -7,19 +7,18 @@ function message(msg, player) {
 }
 
 // listen for interaction with blocks
-// BUG:  when you break nbt blocks (like chest), nbt will be lost
-// This will be fixed once EntityHitBlockAfterEvent available
-world.afterEvents.blockBreak.subscribe((ev) => {
-    const player = ev.player;
+world.afterEvents.entityHitBlock.subscribe((ev) => {
+    // check for player
+    if (ev.damagingEntity.typeId != "minecraft:player")
+        return;
+    const player = world.getAllPlayers().find(v => v.id == ev.damagingEntity.id);
     const heldItem = player.getComponent("minecraft:inventory")
         .container.getItem(player.selectedSlot);
     if (heldItem?.typeId != "vyt:debug_stick")
         return;
     // block permutation
-    const block = ev.block;
-    const permutation = ev.brokenBlockPermutation;
-    // put the block back
-    block.setPermutation(permutation);
+    const block = ev.hitBlock;
+    const permutation = block.permutation;
     // get next state
     const states = permutation.getAllStates();
     const names = Object.keys(states);
