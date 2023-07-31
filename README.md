@@ -17,7 +17,7 @@ This is tested and working properly with Minecraft: Bedrock Edition 1.20.10
 - Download the add-on at the [releases section][releases], or directly [here][dl]
 - Import the add-on to Minecraft
 - Activate it in your world
-- Turn on Experimental Beta APIs
+- Turn on Experimental Beta APIs and Holiday Creator Features
 - Open your world
 - Type the following in the chat commands:
     
