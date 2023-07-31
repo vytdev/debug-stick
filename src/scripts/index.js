@@ -91,4 +91,4 @@ world.beforeEvents.itemUseOn.subscribe((ev) => {
     }
     // send message
     message(`"${prop}" to ${val}`, player);
-})
+});
