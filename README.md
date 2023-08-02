@@ -2,6 +2,8 @@
 
 This add-on implements a debug stick based on Minecraft: Java Edition.
 
+> [*Now on MCPEDL!*](https://mcpedl.com/debug-stick/)
+
 ### Features
 
 Like in Java, you can do:
