@@ -1,3 +1,7 @@
+/* ================================================================
+This piece of file makes it possible for the debug stick to work
+================================================================ */
+
 import { BlockStates, world, system } from "@minecraft/server";
 
 const record = {};
@@ -70,6 +74,8 @@ world.beforeEvents.itemUseOn.subscribe((ev) => {
     // check if recorded state are available in the block
     if (prop == "waterlogged" ? !block.type.canBeWaterlogged : !names.includes(prop))
         prop = names[0];
+    if (!prop && block.type.canBeWaterlogged)
+        prop  = "waterlogged";
     // toggle waterlogged
     if (prop == "waterlogged") {
         val = !block.isWaterlogged;
@@ -89,6 +95,8 @@ world.beforeEvents.itemUseOn.subscribe((ev) => {
             block.setPermutation(permutation.withState(prop, val));
         });
     }
+    // update record
+    record[player.id] = prop;
     // send message
     message(`"${prop}" to ${val}`, player);
 });
