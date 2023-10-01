@@ -27,6 +27,8 @@ This is tested and working properly with Minecraft: Bedrock Edition 1.20.10
     /give @s vyt:debug_stick
     ```
 
+As of 1.2.0 (mc 1.20.30), Holiday Creator Features experimental toggle is no longer needed.
+
 ### Limitations
 
 - Some block properties from Minecraft Java are not available
