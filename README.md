@@ -2,40 +2,42 @@
 
 This add-on implements a debug stick based on Minecraft: Java Edition.
 
-> [*Now on MCPEDL!*](https://mcpedl.com/debug-stick/)
+> [*Now available on MCPEDL!*](https://mcpedl.com/debug-stick/)
 
 ### Features
 
-Like in Java, you can do:
+Similar to Java Edition, you can:
 
-- Change block properties
+- Modify block properties
 - Update property values
-- See messages on actionbar
+- View messages on the action bar
 
-This is tested and working properly with Minecraft: Bedrock Edition 1.20.10
+This add-on has been tested and functions correctly with Minecraft: Bedrock
+Edition 1.20.0 and above.
 
-### How to get
+### How to Obtain
 
-- Download the add-on at the [releases section][releases], or directly [here][dl]
-- Import the add-on to Minecraft
-- Activate it in your world
-- Turn on Experimental Beta APIs and Holiday Creator Features
-- Open your world
-- Type the following in the chat commands:
-    
+- Download the add-on from the [releases section][releases] or directly [here][dl].
+- Import the add-on into Minecraft.
+- Activate it in your world.
+- Enable Experimental Beta APIs and Holiday Creator Features.
+- Open your world.
+- Enter the following command in the chat:
+
     ```text
     /give @s vyt:debug_stick
     ```
 
-As of 1.2.0 (mc 1.20.30), Holiday Creator Features experimental toggle is no longer needed.
+Starting from version 1.2.0 (mc 1.20.30), the Holiday Creator Features
+experimental toggle is no longer required.
 
 ### Limitations
 
-- Some block properties from Minecraft Java are not available
+- Some block properties from Minecraft Java Edition are not accessible.
 
-### Contributing
+### Contribution
 
-Feel free to contribute with the add-on.
+Feel free to contribute to the add-on.
 
 ### License
 
