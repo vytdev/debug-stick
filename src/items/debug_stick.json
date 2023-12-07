@@ -1,20 +1,26 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "vyt:debug_stick",
-            "category": "commands"
-        },
-        "components": {
-            "minecraft:icon": {
-                "texture": "stick"
-            },
-            "minecraft:display_name": {
-                "value": "§dDebug Stick§r"
-            },
-            "minecraft:max_stack_size": 1,
-            "minecraft:can_destroy_in_creative": false,
-            "minecraft:glint": true
-        }
-    }
+	"format_version": "1.20.20",
+
+	"minecraft:item": {
+
+		"description": {
+			"identifier": "vyt:debug_stick",
+			"menu_category": {
+				"category": "items"
+			}
+		},
+
+		"components": {
+			"minecraft:icon": {
+				"texture": "stick"
+			},
+			"minecraft:display_name": {
+				"value": "§dDebug Stick§r"
+			},
+			"minecraft:max_stack_size": 1,
+			"minecraft:can_destroy_in_creative": false,
+			"minecraft:glint": true
+		}
+	}
+
 }
