@@ -1,6 +1,12 @@
+<div align="center">
+
+![icon](src/pack_icon.png)
+
 # Debug Stick
 
 This add-on implements a debug stick based on Minecraft: Java Edition.
+
+</div>
 
 > [*Now available on MCPEDL!*](https://mcpedl.com/debug-stick/)
 
