@@ -17,6 +17,7 @@ Similar to Java Edition, you can:
 - Modify block properties
 - Update property values
 - View messages on the action bar
+- Block viewer (as of 1.6.0, mc 1.20.60)
 
 This add-on has been tested and functions correctly with Minecraft: Bedrock
 Edition 1.20.0 and above.
