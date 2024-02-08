@@ -6,7 +6,7 @@
 +* MCPEDL: https://mcpedl.com/debug-stick
 +* GitHub: https://github.com/vytdev/debug-stick
 +*
-+* Script last updated: 1.5.0 (r1.20.60)
++* Script last updated: 1.6.0 (r1.20.60)
 +*
 +* Copyright (c) 2023-2024 VYT <https://vytdev.github.io>
 +* This project is licensed under the MIT License.
@@ -21,11 +21,10 @@ const record = {};
 
 // show message to player's actionbar
 function message(msg, player) {
-	return player.runCommandAsync(`title @s actionbar ${msg}`);
+	return player.runCommandAsync(`titleraw @s actionbar {"rawtext":[{"text":${JSON.stringify(msg)}}]}`);
 }
 
 // listen for interaction with blocks
-// change selected property
 world.afterEvents.entityHitBlock.subscribe((ev) => {
 	// check for player
 	if (ev.damagingEntity.typeId != "minecraft:player") return;
@@ -38,8 +37,36 @@ world.afterEvents.entityHitBlock.subscribe((ev) => {
 		.getItem(player.selectedSlot)?.typeId != "vyt:debug_stick"
 	) return;
 
-	// block and its permutation
-	const block = ev.hitBlock;
+	// change selected property for block
+	changeSelectedProperty(player, ev.hitBlock);
+});
+
+// listen for clicks in blocks
+world.beforeEvents.itemUseOn.subscribe((ev) => {
+	// check for player and his held item
+	if (ev.source.typeId != "minecraft:player" || ev.itemStack?.typeId != "vyt:debug_stick")
+		return;
+
+	// cancel event behaviour
+	ev.cancel = true;
+
+	// the player
+	const player = world.getAllPlayers().find(v => v.id == ev.source.id);
+
+	// display info about the block
+	if (player.isSneaking) displayBlockInfo(player, ev.block);
+	// update block property
+	else updateBlockProperty(player, ev.block);
+});
+
+
+/*============================================================================*\
++* Action functions
+\*============================================================================*/
+
+// change selected property
+function changeSelectedProperty(player, block) {
+	// the permutation of block
 	const permutation = block.permutation;
 
 	// get a list of allowed states for block
@@ -73,23 +100,11 @@ world.afterEvents.entityHitBlock.subscribe((ev) => {
 
 	// send response message
 	message(`selected "${prop}" (${val})`, player);
-});
+}
 
-// listen for clicks in blocks
-// sets the state value for the property
-world.beforeEvents.itemUseOn.subscribe((ev) => {
-	// check for player and his held item
-	if (ev.source.typeId != "minecraft:player" || ev.itemStack?.typeId != "vyt:debug_stick")
-		return;
-
-	// cancel event behaviour
-	ev.cancel = true;
-
-	// the player
-	const player = world.getAllPlayers().find(v => v.id == ev.source.id);
-
-	// block permutation
-	const block = ev.block;
+// sets the state value for the property on block
+function updateBlockProperty(player, block) {
+	// the permutation of block
 	const permutation = block.permutation;
 
 	// get all block states/properties
@@ -138,4 +153,43 @@ world.beforeEvents.itemUseOn.subscribe((ev) => {
 	record[player.id] = prop;
 	// send response message
 	message(`"${prop}" to ${val}`, player);
-});
+}
+
+// shows some useful details about the block
+function displayBlockInfo(player, block) {
+	// block id
+	let info = "§l§b" + block.typeId + "§r";
+
+	// block coordinates
+	info += "\n§4" + block.x + " §a" + block.y + " §9" + block.z;
+
+	// the matter state
+	info += "\n§7matter state§8: §e";
+	if (block.isLiquid) info += "liquid";
+	else if (block.isAir) info += "gas";
+	else info += "solid";
+
+	// whether the block is solid and impassible
+	info += "\n§7hard block§8: " + (block.isSolid ? "§ayes" : "§cno");
+
+	// redstone power
+	info += "\n§7redstone power§8: §c" + (block.getRedstonePower() ?? 0);
+
+	// block states/properties
+	Object.entries(block.permutation.getAllStates()).forEach(([k, v]) => {
+		info += "\n§o§7" + k + "§r§8: ";
+		if (typeof v == "string") info += "§e";
+		if (typeof v == "number") info += "§3";
+		if (typeof v == "boolean") info += "§6";
+		info += v;
+	});
+
+	// waterlog property
+	if (block.type.canBeWaterlogged) info += "\n§o§7waterlogged§r§8: §6" + block.isWaterlogged;
+
+	// block tags
+	block.getTags().forEach(v => info += "\n§d#" + v);
+
+	// show to player
+	message(info, player);
+}
