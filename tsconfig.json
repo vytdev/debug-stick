@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "module": "es2020",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "target": "es2022",
+    "lib": [ "es2020", "dom" ],
+    "preserveConstEnums": true,
+    "sourceMap": false,
+    "outDir": "./pack/scripts",
+    "declaration": false,
+    "allowJs": true,
+    "baseUrl": "./src"
+  },
+  "include": [
+    "./src"
+  ]
+}
+
