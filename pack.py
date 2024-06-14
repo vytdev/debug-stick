@@ -2,7 +2,7 @@ import os
 import zipfile
 import pathlib
 
-srcdir = "src"
+srcdir = "pack"
 output_name = "debug-stick.mcpack"
 
 print("Packaging .mcpack add-on...")
