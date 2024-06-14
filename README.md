@@ -1,6 +1,6 @@
 <div align="center">
 
-![icon](src/pack_icon.png)
+![icon](pack/pack_icon.png)
 
 # Debug Stick
 
