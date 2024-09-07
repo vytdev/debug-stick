@@ -5,7 +5,7 @@
     "name": "Debug Stick",
     "description": "Java Debug Stick on Minecraft: Bedrock Edition. By §bvytdev§r",
     "uuid": "21aadfa6-e27c-400c-c596-596021852939",
-    "version": "1.10.0",
+    "version": "1.10.1",
     "min_engine_version": [ 1, 21, 0 ]
   },
 
