@@ -14,6 +14,7 @@
 			"minecraft:icon": {
 				"texture": "stick"
 			},
+			"minecraft:hand_equipped": true,
 			"minecraft:display_name": {
 				"value": "§dDebug Stick§r"
 			},
