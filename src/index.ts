@@ -156,43 +156,30 @@ function updateBlockProperty(player: Player, block: Block) {
   // send response message
   message(`"${prop}" to ${val}`, player);
 }
-
-// shows some useful details about the block
-function displayBlockInfo(player: Player, block: Block) {
-  // block id
-  let info = "§l§b" + block.typeId + "§r";
-
-  // block coordinates
-  info += "\n§4" + block.x + " §a" + block.y + " §9" + block.z;
-
-  // the matter state
-  info += "\n§7matter state§8: §e";
-  if (block.isLiquid) info += "liquid";
-  else if (block.isAir) info += "gas";
-  else info += "solid";
-
-  // whether the block is solid and impassible
-  info += "\n§7hard block§8: " + (block.isSolid ? "§ayes" : "§cno");
-
-  // redstone power
-  info += "\n§7redstone power§8: §c" + (block.getRedstonePower() ?? 0);
-
-  // block states/properties
-  Object.entries(block.permutation.getAllStates()).forEach(([k, v]) => {
-    info += "\n§o§7" + k + "§r§8: ";
-    if (typeof v == "string") info += "§e";
-    if (typeof v == "number") info += "§3";
-    if (typeof v == "boolean") info += "§6";
-    info += v;
-  });
-
-  // waterlog property
-  if (block.type.canBeWaterlogged) info += "\n§o§7waterlogged§r§8: §6" + block.isWaterlogged;
-
-  // block tags
-  block.getTags().forEach(v => info += "\n§d#" + v);
-
-  // show to player
-  message(info, player);
+// displays info about the block
+// edit by xAssassin to be functional after 1.21
+function displayBlockInfo(player, block) {
+    let info = "§l§b" + block.typeId + "§r";
+    info += "\n§4" + block.x + " §a" + block.y + " §9" + block.z;
+    info += "\n§7matter state§8: §e";
+    if (block.isLiquid) info += "liquid";
+    else if (block.isAir) info += "gas";
+    else info += "solid";
+    info += "\n§7hard block§8: " + (block.isSolid ? "§ayes" : "§cno");
+    // Retrieve and display the block states/properties
+    Object.entries(block.permutation.getAllStates()).forEach(([k, v]) => {
+        info += "\n§o§7" + k + "§r§8: ";
+        if (typeof v == "string") info += "§e";
+        if (typeof v == "number") info += "§3";
+        if (typeof v == "boolean") info += "§6";
+        info += v;
+    });
+    // Check if the block type can be waterlogged and display the status
+    if (block.type.canBeWaterlogged) info += "\n§o§7waterlogged§r§8: §6" + block.isWaterlogged;
+    // Display block tags if available
+    if (block.tags) {
+        block.tags.forEach(tag => info += "\n§d#" + tag);
+    }
+    // Show the message to the player
+    message(info, player);
 }
-
