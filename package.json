@@ -1,6 +1,6 @@
 {
   "name": "debug-stick",
-  "version": "1.10.1",
+  "version": "1.11.0",
   "description": "Debug stick for minecraft bedrock",
   "scripts": {
     "test": "npx tsc",
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/vytdev/debug-stick#readme",
   "dependencies": {
-    "@minecraft/server": "1.14.0-beta.1.21.20-stable",
+    "@minecraft/server": "1.15.0-beta.1.21.30-stable",
     "typescript": "^5.4.5"
   }
 }
