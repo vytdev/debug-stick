@@ -6,7 +6,7 @@
 +* MCPEDL: https://mcpedl.com/debug-stick
 +* GitHub: https://github.com/vytdev/debug-stick
 +*
-+* Script last updated: 1.9.0 (r1.21.0)
++* Script last updated: September 19, 2024
 +*
 +* Copyright (c) 2023-2024 VYT <https://vytdev.github.io>
 +* This project is licensed under the MIT License.
@@ -34,6 +34,9 @@ type BlockStateValue = boolean | number | string;
 const DEBUG_STICK_ID = "vyt:debug_stick";
 
 
+// Some event listeners. Listens for entityHitBkock
+// and itemUseOn events, which triggers an action onto
+// the debug stick
 world.afterEvents.entityHitBlock.subscribe((ev) => {
   if (ev.damagingEntity.typeId != "minecraft:player")
     return;
@@ -68,7 +71,7 @@ world.beforeEvents.itemUseOn.subscribe((ev) => {
 \*============================================================================*/
 
 /**
- * Change a selected property
+ * Change the selected property
  * @param player
  * @param block
  */
@@ -80,12 +83,16 @@ function changeSelectedProperty(player: Player, block: Block) {
   if (!names.length && !block.type.canBeWaterlogged)
     return message(`${block.typeId} has no properties`, player);
 
-  let prop = getCurrentProperty(player, block.type.id);
+  let prop = getCurrentProperty(player, block.typeId);
   let val: BlockStateValue;
 
+  // Increment for the next property
   prop = names[names.indexOf(prop) + 1];
   val = states[prop];
 
+  // We're probably at the end of the property names
+  // list, check if the 'waterlogged' property is
+  // available, or just go back at the start of the list
   if (!prop) {
     if (block.type.canBeWaterlogged) {
       prop = "waterlogged";
@@ -97,13 +104,14 @@ function changeSelectedProperty(player: Player, block: Block) {
     }
   }
 
-  setCurrentProperty(player, block.type.id, prop);
+  // Update the player's selection
+  setCurrentProperty(player, block.typeId, prop);
 
   message(`selected "${prop}" (${val})`, player);
 }
 
 /**
- * Change a block property
+ * Change a block property value
  * @param player
  * @param block
  */
@@ -115,15 +123,18 @@ function updateBlockProperty(player: Player, block: Block) {
   if (!names.length && !block.type.canBeWaterlogged)
     return message(`${block.typeId} has no properties`, player);
 
-  let prop = getCurrentProperty(player, block.type.id);
+  let prop = getCurrentProperty(player, block.typeId);
   let val: BlockStateValue;
 
+  // Ensure that the recorded block property selection
+  // is available on the block
   if (prop == "waterlogged" ? !block.type.canBeWaterlogged : !names.includes(prop))
     prop = names[0];
 
   if (!prop && block.type.canBeWaterlogged)
-    prop  = "waterlogged";
+    prop = "waterlogged";
 
+  // Update the property value
   if (prop == "waterlogged") {
     val = !block.isWaterlogged;
     system.run(() => {
@@ -143,7 +154,8 @@ function updateBlockProperty(player: Player, block: Block) {
     });
   }
 
-  setCurrentProperty(player, block.type.id, prop);
+  // Avoid some edge cases bugs
+  setCurrentProperty(player, block.typeId, prop);
 
   message(`"${prop}" to ${val}`, player);
 }
@@ -156,22 +168,22 @@ function updateBlockProperty(player: Player, block: Block) {
 function displayBlockInfo(player: Player, block: Block) {
   let info = "§l§b" + block.typeId + "§r";
 
-  // coordinates
+  // The block's coordinates
   info += "\n§4" + block.x + " §a" + block.y + " §9" + block.z;
 
-  // matter state
+  // Block's matter state
   info += "\n§7matter state§8: §e";
   if (block.isLiquid) info += "liquid";
   else if (block.isAir) info += "gas";
   else info += "solid";
 
-  // impassable
+  // Whether the block is impassable
   info += "\n§7hard block§8: " + (block.isSolid ? "§ayes" : "§cno");
 
-  // redstone power
+  // The block's emitted/recieved redstone power
   info += "\n§7redstone power§8: §c" + (block.getRedstonePower() ?? 0);
 
-  // block states
+  // The block states
   Object.entries(block.permutation.getAllStates()).forEach(([k, v]) => {
     info += "\n§o§7" + k + "§r§8: ";
     if (typeof v == "string") info += "§e";
@@ -180,11 +192,11 @@ function displayBlockInfo(player: Player, block: Block) {
     info += v;
   });
 
-  // waterlog property
+  // Waterlog property if available
   if (block.type.canBeWaterlogged)
     info += "\n§o§7waterlogged§r§8: §6" + block.isWaterlogged;
 
-  // block tags
+  // Additional block tags
   block.getTags().forEach(v => info += "\n§d#" + v);
 
   message(info, player);
@@ -247,7 +259,7 @@ function getPlayerByID(id: string): Player | undefined {
 /**
  * Get the currently selected property for a block given the
  * interacting player
- * @param stick The debug stick
+ * @param player The player
  * @param block The block ID
  * @returns The current selected property or undefined
  */
@@ -260,7 +272,7 @@ function getCurrentProperty(player: Player, block: string): string | undefined {
 /**
  * Change the currently selected property for a block given
  * the interacting player
- * @param stick The debug stick
+ * @param player The player
  * @param block The block ID
  * @param val The new property name
  */
