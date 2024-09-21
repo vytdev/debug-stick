@@ -65,6 +65,16 @@ world.beforeEvents.itemUseOn.subscribe((ev) => {
     safeCall(updateBlockProperty, player, ev.block);
 });
 
+// Players should not be able to break blocks using
+// the debug stick in survival
+//
+// TODO: explore other alternatives
+world.beforeEvents.playerBreakBlock.subscribe((ev) => {
+  if (ev.itemStack?.typeId != DEBUG_STICK_ID)
+    return;
+  ev.cancel = true;
+})
+
 
 /*============================================================================*\
 +* Action functions
