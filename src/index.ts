@@ -23,6 +23,10 @@ import {
   system
 } from "@minecraft/server";
 
+import {
+  BlockStateSuperset
+} from "@minecraft/vanilla-data";
+
 /**
  * Block state type
  */
@@ -160,7 +164,7 @@ function updateBlockProperty(player: Player, block: Block) {
       val = valids[0];
 
     system.run(() => {
-      block.setPermutation(permutation.withState(prop, val));
+      block.setPermutation(permutation.withState(prop as keyof BlockStateSuperset, val));
     });
   }
 
