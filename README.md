@@ -48,7 +48,7 @@ Feel free to contribute to the add-on.
 
 ### License
 
-Copyright &copy; 2023 Vincent Yanzee J. Tan. Licensed under the MIT License.
+Copyright &copy; 2023-2025 Vincent Yanzee J. Tan. Licensed under the MIT License.
 
 [releases]: https://github.com/vytdev/debug-stick/releases
 [dl]: https://github.com/vytdev/debug-stick/releases/latest/download/debug-stick.mcpack

@@ -3,7 +3,7 @@
 
   "header": {
     "name": "Debug Stick",
-    "description": "Java Debug Stick on Minecraft: Bedrock Edition. By §bvytdev§r",
+    "description": "Java §dDebug Stick§r ported to Minecraft: Bedrock Edition, by §bvytdev§r\nUse §a/give @s vyt:debug_stick§r or find it in the inventory screen to obtain the item.\n\nReport bugs here: §bhttps://github.com/vytdev/debug-stick/§r\nCopyright (c) 2023-2025 Vincent Yanzee J. Tan\nLicensed under the MIT License.",
     "uuid": "21aadfa6-e27c-400c-c596-596021852939",
     "version": "1.13.0",
     "min_engine_version": [ 1, 21, 50 ]

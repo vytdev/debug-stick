@@ -8,7 +8,7 @@
 +*
 +* Script last updated: September 19, 2024
 +*
-+* Copyright (c) 2023-2024 VYT <https://vytdev.github.io>
++* Copyright (c) 2023-2025 VYT <https://vytdev.github.io>
 +* This project is licensed under the MIT License.
 +* See LICENSE for more details.
 +*
