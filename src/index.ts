@@ -20,7 +20,9 @@ import {
   BlockStates,
   ItemStack,
   world,
-  system
+  system,
+  LiquidType,
+  Direction
 } from "@minecraft/server";
 
 import {
@@ -47,7 +49,7 @@ world.afterEvents.entityHitBlock.subscribe((ev) => {
 
   const player = getPlayerByID(ev.damagingEntity.id);
 
-  if (!isHoldingDebugStick(player))
+  if (player == undefined || !isHoldingDebugStick(player))
     return;
 
   safeCall(changeSelectedProperty, player, ev.hitBlock);
@@ -63,8 +65,10 @@ world.beforeEvents.itemUseOn.subscribe((ev) => {
 
   const player = getPlayerByID(ev.source.id);
 
+  if (player == undefined) return;
+
   if (player.isSneaking)
-    safeCall(displayBlockInfo, player, ev.block);
+    safeCall(displayBlockInfo, player, ev.block, ev.blockFace);
   else
     safeCall(updateBlockProperty, player, ev.block);
 });
@@ -94,10 +98,13 @@ function changeSelectedProperty(player: Player, block: Block) {
   const states = permutation.getAllStates();
   const names = Object.keys(states);
 
-  if (!names.length && !block.type.canBeWaterlogged)
+  if (!names.length && !block.canContainLiquid(LiquidType.Water))
     return message(`${block.typeId} has no properties`, player);
 
   let prop = getCurrentProperty(player, block.typeId);
+
+  if (prop == undefined) return;
+
   let val: BlockStateValue;
 
   // Increment for the next property
@@ -108,7 +115,7 @@ function changeSelectedProperty(player: Player, block: Block) {
   // list, check if the 'waterlogged' property is
   // available, or just go back at the start of the list
   if (!prop) {
-    if (block.type.canBeWaterlogged) {
+    if (block.canContainLiquid(LiquidType.Water)) {
       prop = "waterlogged";
       val = block.isWaterlogged;
     }
@@ -134,18 +141,21 @@ function updateBlockProperty(player: Player, block: Block) {
   const states = permutation.getAllStates();
   const names = Object.keys(states);
 
-  if (!names.length && !block.type.canBeWaterlogged)
+  if (!names.length && !block.canContainLiquid(LiquidType.Water))
     return message(`${block.typeId} has no properties`, player);
 
   let prop = getCurrentProperty(player, block.typeId);
+
+  if (prop == undefined) return;
+
   let val: BlockStateValue;
 
   // Ensure that the recorded block property selection
   // is available on the block
-  if (prop == "waterlogged" ? !block.type.canBeWaterlogged : !names.includes(prop))
+  if (prop == "waterlogged" ? !block.canContainLiquid(LiquidType.Water) : !names.includes(prop))
     prop = names[0];
 
-  if (!prop && block.type.canBeWaterlogged)
+  if (!prop && block.canContainLiquid(LiquidType.Water))
     prop = "waterlogged";
 
   // Update the property value
@@ -157,7 +167,7 @@ function updateBlockProperty(player: Player, block: Block) {
   }
 
   else {
-    const valids = BlockStates.get(prop).validValues;
+    const valids = BlockStates.get(prop)!.validValues;
     val = valids[valids.indexOf(states[prop]) + 1];
 
     if (typeof val === "undefined")
@@ -179,11 +189,11 @@ function updateBlockProperty(player: Player, block: Block) {
  * @param player
  * @param block
  */
-function displayBlockInfo(player: Player, block: Block) {
+function displayBlockInfo(player: Player, block: Block, block_face: Direction) {
   let info = "§l§b" + block.typeId + "§r";
 
   // The block's coordinates
-  info += "\n§4" + block.x + " §a" + block.y + " §9" + block.z;
+  info += "\n§4" + block.x + " §a" + block.y + " §9" + block.z + " §7face: " + block_face;
 
   // Block's matter state
   info += "\n§7matter state§8: §e";
@@ -207,7 +217,7 @@ function displayBlockInfo(player: Player, block: Block) {
   });
 
   // Waterlog property if available
-  if (block.type.canBeWaterlogged)
+  if (block.canContainLiquid(LiquidType.Water))
     info += "\n§o§7waterlogged§r§8: §6" + block.isWaterlogged;
 
   // Additional block tags
@@ -241,10 +251,7 @@ function message(msg: string, player: Player) {
  * @returns ItemStack or undefined
  */
 function getHeldItem(player: Player): ItemStack | undefined {
-  return player
-    .getComponent("minecraft:inventory")
-    .container
-    .getItem(player.selectedSlotIndex);
+  return player.getComponent("minecraft:inventory")?.container?.getItem(player.selectedSlotIndex);
 }
 
 /**
@@ -305,7 +312,7 @@ function setCurrentProperty(player: Player, block: string, val: string): void {
 function safeCall<A extends any[], R>(
     func: (...args: A) => R,
     ...args: A
-  ): R {
+  ): R | undefined {
 
     try {
       return func.apply({}, args);
@@ -318,9 +325,10 @@ function safeCall<A extends any[], R>(
 
       msg += e;
 
-      if (e?.stack)
+      if (e instanceof Error && e.stack)
         msg += `\n${e.stack}`;
 
       console.error(msg);
     }
+    return undefined;
 }

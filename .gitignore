@@ -3,3 +3,5 @@ debug-stick.mcpack
 node_modules
 package-lock.json
 pack/scripts/*
+lib/
+dist/
