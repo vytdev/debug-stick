@@ -83,6 +83,12 @@ Run this one to deploy in the editor mode.
 npm run local-deploy-editor
 ```
 
+Building the `.mcaddon` and `.mcpack`:
+
+```powershell
+npm run mcaddon
+```
+
 ## Contribution
 
 Feel free to contribute to the add-on.

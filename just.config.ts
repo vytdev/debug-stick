@@ -125,4 +125,4 @@ task(
 task("create-ingame-mcaddon-file", series(setEnvIngame, mcaddonTask(mcaddonTaskIngameOptions)));
 task("create-editor-mcaddon-file", series(setEnvEditor, mcaddonTask(mcaddonTaskEditorOptions)));
 
-task("mcaddon-ingame", series("clean-local-ingame", "build-ingame", "create-ingame-mcaddon-file"));
+task("mcaddon", series("clean-local-ingame", "build-ingame", "create-ingame-mcaddon-file"));
