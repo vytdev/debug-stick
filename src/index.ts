@@ -21,7 +21,8 @@ import {
   ItemStack,
   world,
   system,
-  LiquidType
+  LiquidType,
+  Direction
 } from "@minecraft/server";
 
 import {
@@ -67,7 +68,7 @@ world.beforeEvents.itemUseOn.subscribe((ev) => {
   if (player == undefined) return;
 
   if (player.isSneaking)
-    safeCall(displayBlockInfo, player, ev.block);
+    safeCall(displayBlockInfo, player, ev.block, ev.blockFace);
   else
     safeCall(updateBlockProperty, player, ev.block);
 });
@@ -188,11 +189,11 @@ function updateBlockProperty(player: Player, block: Block) {
  * @param player
  * @param block
  */
-function displayBlockInfo(player: Player, block: Block) {
+function displayBlockInfo(player: Player, block: Block, block_face: Direction) {
   let info = "§l§b" + block.typeId + "§r";
 
   // The block's coordinates
-  info += "\n§4" + block.x + " §a" + block.y + " §9" + block.z;
+  info += "\n§4" + block.x + " §a" + block.y + " §9" + block.z + " §7face: " + block_face;
 
   // Block's matter state
   info += "\n§7matter state§8: §e";
