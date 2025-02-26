@@ -6,7 +6,7 @@
 +* MCPEDL: https://mcpedl.com/debug-stick
 +* GitHub: https://github.com/vytdev/debug-stick
 +*
-+* Script last updated: September 19, 2024
++* Script last updated: February 27, 2025
 +*
 +* Copyright (c) 2023-2025 VYT <https://vytdev.github.io>
 +* This project is licensed under the MIT License.
@@ -94,7 +94,7 @@ function changeSelectedProperty(player: Player, block: Block) {
   const states = permutation.getAllStates();
   const names = Object.keys(states);
 
-  if (!names.length && !block.type.canBeWaterlogged)
+  if (!names.length/* && !block.type.canBeWaterlogged*/)
     return message(`${block.typeId} has no properties`, player);
 
   let prop = getCurrentProperty(player, block.typeId);
@@ -108,14 +108,14 @@ function changeSelectedProperty(player: Player, block: Block) {
   // list, check if the 'waterlogged' property is
   // available, or just go back at the start of the list
   if (!prop) {
-    if (block.type.canBeWaterlogged) {
+    /*if (block.type.canBeWaterlogged) {
       prop = "waterlogged";
       val = block.isWaterlogged;
     }
-    else {
+    else {*/
       prop = names[0];
       val = states[prop];
-    }
+    /*}*/
   }
 
   // Update the player's selection
@@ -134,7 +134,7 @@ function updateBlockProperty(player: Player, block: Block) {
   const states = permutation.getAllStates();
   const names = Object.keys(states);
 
-  if (!names.length && !block.type.canBeWaterlogged)
+  if (!names.length/* && !block.type.canBeWaterlogged*/)
     return message(`${block.typeId} has no properties`, player);
 
   let prop = getCurrentProperty(player, block.typeId);
@@ -142,21 +142,22 @@ function updateBlockProperty(player: Player, block: Block) {
 
   // Ensure that the recorded block property selection
   // is available on the block
-  if (prop == "waterlogged" ? !block.type.canBeWaterlogged : !names.includes(prop))
+  /*if (prop == "waterlogged" ? !block.type.canBeWaterlogged : !names.includes(prop))*/
+  if (!names.includes(prop))
     prop = names[0];
 
-  if (!prop && block.type.canBeWaterlogged)
-    prop = "waterlogged";
+  /*if (!prop && block.type.canBeWaterlogged)
+    prop = "waterlogged";*/
 
   // Update the property value
-  if (prop == "waterlogged") {
+  /*if (prop == "waterlogged") {
     val = !block.isWaterlogged;
     system.run(() => {
       block.setWaterlogged(val as boolean);
     });
   }
 
-  else {
+  else {*/
     const valids = BlockStates.get(prop).validValues;
     val = valids[valids.indexOf(states[prop]) + 1];
 
@@ -166,7 +167,7 @@ function updateBlockProperty(player: Player, block: Block) {
     system.run(() => {
       block.setPermutation(permutation.withState(prop as keyof BlockStateSuperset, val));
     });
-  }
+  /*}*/
 
   // Avoid some edge cases bugs
   setCurrentProperty(player, block.typeId, prop);
@@ -207,8 +208,8 @@ function displayBlockInfo(player: Player, block: Block) {
   });
 
   // Waterlog property if available
-  if (block.type.canBeWaterlogged)
-    info += "\n§o§7waterlogged§r§8: §6" + block.isWaterlogged;
+  /*if (block.type.canBeWaterlogged)
+    info += "\n§o§7waterlogged§r§8: §6" + block.isWaterlogged;*/
 
   // Additional block tags
   block.getTags().forEach(v => info += "\n§d#" + v);
