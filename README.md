@@ -22,7 +22,7 @@ Similar to Java Edition, you can:
 This add-on has been tested and functions correctly with Minecraft: Bedrock
 Edition 1.20.0 and above.
 
-### How to Obtain
+## How to Obtain
 
 - Download the add-on from the [releases section][releases] or directly [here][dl].
 - Import the add-on into Minecraft.
@@ -42,13 +42,60 @@ experimental toggle is no longer required.
 
 - Some block properties from Minecraft Java Edition are not accessible.
 
-### Contribution
+
+## How to Build Add-On
+
+1. Use npm to install dependent modules:
+
+   ```powershell
+   npm i
+   ```
+
+1. Use this shortcut command to open the project in Visual Studio Code:
+
+   ```powershell
+   code .
+   ```
+
+### Running the Add-On
+
+Within the root folder (debug_tools) of this sample, run this command:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
+Run this one to deploy in the game.
+
+```powershell
+npm run local-deploy
+```
+
+If you'd like to run deployment in a watch mode, run the following:
+
+```powershell
+npm run local-deploy -- --watch
+```
+
+Run this one to deploy in the editor mode.
+
+```powershell
+npm run local-deploy-editor
+```
+
+## Contribution
 
 Feel free to contribute to the add-on.
 
-### License
+## License
 
 Copyright &copy; 2023-2025 Vincent Yanzee J. Tan. Licensed under the MIT License.
 
 [releases]: https://github.com/vytdev/debug-stick/releases
 [dl]: https://github.com/vytdev/debug-stick/releases/latest/download/debug-stick.mcpack
+
+## Manifest
+
+- [just.config.ts](https://github.com/microsoft/minecraft-samples/blob/main/debug_tools/just.config.ts): This file contains build instructions for just-scripts, for building out TypeScript code.
+- [scripts](https://github.com/microsoft/minecraft-samples/blob/main/debug_tools/scripts): This contains Debug Tools TypeScript files, that will be compiled and built into your projects.
+- [behavior_packs](https://github.com/microsoft/minecraft-samples/blob/main/debug_tools/behavior_packs): This contains resources and JSON files that define your behavior pack.

@@ -1,0 +1,45 @@
+{
+    "format_version": 2,
+  
+    "header": {
+      "name": "Debug Stick",
+      "description": "Java §dDebug Stick§r ported to Minecraft: Bedrock Edition, by §bvytdev§r\nUse §a/give @s vyt:debug_stick§r or find it in the inventory screen to obtain the item.\n\nReport bugs here: §bhttps://github.com/vytdev/debug-stick/§r\nCopyright (c) 2023-2025 Vincent Yanzee J. Tan\nLicensed under the MIT License.",
+      "uuid": "11c582c1-a87f-4c8f-b6de-77b65b400738",
+      "version": "1.13.0",
+      "min_engine_version": [ 1, 21, 60 ]
+    },
+  
+    "modules": [
+      {
+        "description": "Behaviour",
+        "type": "data",
+        "uuid": "ead47941-848b-4d77-8a31-11a036878237",
+        "version": [ 1, 0, 0 ]
+      },
+      {
+        "description": "scripting",
+        "type": "script",
+        "language": "javascript",
+        "entry": "scripts/main.js",
+        "uuid": "4076907f-4ff5-4fde-8b7a-f2f96963832b",
+        "version": [ 1, 0, 0 ]
+      }
+    ],
+    "capabilities": ["editorExtension"],
+    "dependencies": [
+      {
+      "uuid": "32b99a24-7323-464d-9a21-e631ef306664",
+      "version": [1, 0, 0]
+    },
+      {
+        "module_name": "@minecraft/server",
+        "version": "1.18.0-beta"
+      }
+    ],
+  
+    "metadata": {
+      "authors": [ "VYT" ],
+      "license": "MIT",
+      "url": "https://github.com/vytdev/debug-stick"
+    }
+  }

@@ -1,0 +1,25 @@
+{
+    "format_version": 2,
+    "header": {
+      "name": "Debug Stick for InGame",
+      "description": "Java §dDebug Stick§r ported to Minecraft: Bedrock Edition, by §bvytdev§r\nUse §a/give @s vyt:debug_stick§r or find it in the inventory screen to obtain the item.\n\nReport bugs here: §bhttps://github.com/vytdev/debug-stick/§r\nCopyright (c) 2023-2025 Vincent Yanzee J. Tan\nLicensed under the MIT License.",
+      "uuid": "23a93488-7b75-4e4d-b563-ff4477b14409",
+      "version": [1, 0, 0],
+      "min_engine_version": [1, 20, 0]
+    },
+    "capabilities": ["editorExtension"],
+    "modules": [
+      {
+        "description": "Debug Sctick Resource",
+        "type": "resources",
+        "uuid": "3b5de48c-6276-4462-bcd1-80cdf4ca0d97",
+        "version": [1, 0, 0]
+      }
+    ],
+    "dependencies": [
+      {
+        "uuid": "21aadfa6-e27c-400c-c596-596021852939",
+        "version": [1, 0, 0]
+      }
+    ]
+  }
