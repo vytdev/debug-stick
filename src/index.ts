@@ -19,6 +19,7 @@ import {
   Block,
   BlockStates,
   ItemStack,
+  LiquidType,
   world,
   system
 } from "@minecraft/server";
@@ -41,43 +42,43 @@ const DEBUG_STICK_ID = "vyt:debug_stick";
 // Some event listeners. Listens for entityHitBkock
 // and itemUseOn events, which triggers an action onto
 // the debug stick
-world.afterEvents.entityHitBlock.subscribe((ev) => {
+world.afterEvents.entityHitBlock.subscribe(safeCallWrapper((ev) => {
   if (ev.damagingEntity.typeId != "minecraft:player")
     return;
-
   const player = getPlayerByID(ev.damagingEntity.id);
-
+  if (!player)
+    return;
   if (!isHoldingDebugStick(player))
     return;
+  changeSelectedProperty(player, ev.hitBlock);
+}));
 
-  safeCall(changeSelectedProperty, player, ev.hitBlock);
-});
 
-world.beforeEvents.itemUseOn.subscribe((ev) => {
+world.beforeEvents.itemUseOn.subscribe(safeCallWrapper((ev) => {
   if (ev.source.typeId != "minecraft:player")
     return;
   if (ev.itemStack?.typeId != DEBUG_STICK_ID)
     return;
-
   ev.cancel = true;
-
   const player = getPlayerByID(ev.source.id);
-
+  if (!player)
+    return;
   if (player.isSneaking)
-    safeCall(displayBlockInfo, player, ev.block);
+    displayBlockInfo(player, ev.block);
   else
-    safeCall(updateBlockProperty, player, ev.block);
-});
+    updateBlockProperty(player, ev.block);
+}));
+
 
 // Players should not be able to break blocks using
 // the debug stick in survival
 //
 // TODO: explore other alternatives
-world.beforeEvents.playerBreakBlock.subscribe((ev) => {
+world.beforeEvents.playerBreakBlock.subscribe(safeCallWrapper((ev) => {
   if (ev.itemStack?.typeId != DEBUG_STICK_ID)
     return;
   ev.cancel = true;
-})
+}));
 
 
 /*============================================================================*\
@@ -90,37 +91,22 @@ world.beforeEvents.playerBreakBlock.subscribe((ev) => {
  * @param block
  */
 function changeSelectedProperty(player: Player, block: Block) {
-  const permutation = block.permutation;
-  const states = permutation.getAllStates();
+  const states = getBlockStates(block);
   const names = Object.keys(states);
-
-  if (!names.length/* && !block.type.canBeWaterlogged*/)
+  if (!names.length)
     return message(`${block.typeId} has no properties`, player);
-
   let prop = getCurrentProperty(player, block.typeId);
   let val: BlockStateValue;
-
   // Increment for the next property
   prop = names[names.indexOf(prop) + 1];
   val = states[prop];
-
   // We're probably at the end of the property names
-  // list, check if the 'waterlogged' property is
-  // available, or just go back at the start of the list
+  // list, cycle back from the start.
   if (!prop) {
-    /*if (block.type.canBeWaterlogged) {
-      prop = "waterlogged";
-      val = block.isWaterlogged;
-    }
-    else {*/
-      prop = names[0];
-      val = states[prop];
-    /*}*/
+    prop = names[0];
+    val = states[prop];
   }
-
-  // Update the player's selection
   setCurrentProperty(player, block.typeId, prop);
-
   message(`selected "${prop}" (${val})`, player);
 }
 
@@ -130,48 +116,22 @@ function changeSelectedProperty(player: Player, block: Block) {
  * @param block
  */
 function updateBlockProperty(player: Player, block: Block) {
-  const permutation = block.permutation;
-  const states = permutation.getAllStates();
+  const states = getBlockStates(block);
   const names = Object.keys(states);
-
-  if (!names.length/* && !block.type.canBeWaterlogged*/)
+  if (!names.length)
     return message(`${block.typeId} has no properties`, player);
-
   let prop = getCurrentProperty(player, block.typeId);
   let val: BlockStateValue;
-
   // Ensure that the recorded block property selection
   // is available on the block
-  /*if (prop == "waterlogged" ? !block.type.canBeWaterlogged : !names.includes(prop))*/
   if (!names.includes(prop))
     prop = names[0];
-
-  /*if (!prop && block.type.canBeWaterlogged)
-    prop = "waterlogged";*/
-
-  // Update the property value
-  /*if (prop == "waterlogged") {
-    val = !block.isWaterlogged;
-    system.run(() => {
-      block.setWaterlogged(val as boolean);
-    });
-  }
-
-  else {*/
-    const valids = BlockStates.get(prop).validValues;
-    val = valids[valids.indexOf(states[prop]) + 1];
-
-    if (typeof val === "undefined")
-      val = valids[0];
-
-    system.run(() => {
-      block.setPermutation(permutation.withState(prop as keyof BlockStateSuperset, val));
-    });
-  /*}*/
-
-  // Avoid some edge cases bugs
+  const valids = getStateValidValues(prop);
+  val = valids[valids.indexOf(states[prop]) + 1];
+  if (typeof val === "undefined")
+    val = valids[0];
+  setBlockState(block, prop, val);
   setCurrentProperty(player, block.typeId, prop);
-
   message(`"${prop}" to ${val}`, player);
 }
 
@@ -182,38 +142,24 @@ function updateBlockProperty(player: Player, block: Block) {
  */
 function displayBlockInfo(player: Player, block: Block) {
   let info = "§l§b" + block.typeId + "§r";
-
-  // The block's coordinates
+  // Basic info
   info += "\n§4" + block.x + " §a" + block.y + " §9" + block.z;
-
-  // Block's matter state
   info += "\n§7matter state§8: §e";
-  if (block.isLiquid) info += "liquid";
+  if (block.isLiquid)   info += "liquid";
   else if (block.isAir) info += "gas";
-  else info += "solid";
-
-  // Whether the block is impassable
+  else                  info += "solid";
   info += "\n§7hard block§8: " + (block.isSolid ? "§ayes" : "§cno");
-
-  // The block's emitted/recieved redstone power
   info += "\n§7redstone power§8: §c" + (block.getRedstonePower() ?? 0);
-
   // The block states
-  Object.entries(block.permutation.getAllStates()).forEach(([k, v]) => {
+  Object.entries(getBlockStates(block)).forEach(([k, v]) => {
     info += "\n§o§7" + k + "§r§8: ";
     if (typeof v == "string") info += "§e";
     if (typeof v == "number") info += "§3";
     if (typeof v == "boolean") info += "§6";
     info += v;
   });
-
-  // Waterlog property if available
-  /*if (block.type.canBeWaterlogged)
-    info += "\n§o§7waterlogged§r§8: §6" + block.isWaterlogged;*/
-
   // Additional block tags
   block.getTags().forEach(v => info += "\n§d#" + v);
-
   message(info, player);
 }
 
@@ -272,6 +218,54 @@ function getPlayerByID(id: string): Player | undefined {
 }
 
 /**
+ * Returns all the block states of a block.
+ * @param block The block.
+ * @returns Record<string, BlockStateValue>
+ */
+function getBlockStates(block: Block): Record<string, BlockStateValue> {
+  const states = block.permutation.getAllStates() || {};
+  if (block.canContainLiquid(LiquidType.Water))
+    states["waterlogged"] = block.isWaterlogged;
+  return states;
+}
+
+/**
+ * Get the valid values of a block state.
+ * @param state The block state.
+ * @returns BlockStateValue[]
+ */
+function getStateValidValues(state: string): BlockStateValue[] {
+  if (state == "waterlogged")
+    return [false, true];
+  return BlockStates.get(state).validValues;
+}
+
+/**
+ * Set a block's state.
+ * @param block The block to modify.
+ * @param state The state property to set.
+ * @param val The value to set.
+ * @returns Promise
+ */
+function setBlockState(block: Block, state: string, val: BlockStateValue): Promise<undefined> {
+  return new Promise<undefined>((res, rej) => {
+      system.run(() => {
+        try {
+          if (state == "waterlogged")
+            block.setWaterlogged(val as boolean);
+          else
+            block.setPermutation(block.permutation.withState(
+              state as keyof BlockStateSuperset, val));
+          res(undefined);
+        }
+        catch (e) {
+          rej(e);
+        }
+      });
+    });
+}
+
+/**
  * Get the currently selected property for a block given the
  * interacting player
  * @param player The player
@@ -306,7 +300,7 @@ function setCurrentProperty(player: Player, block: string, val: string): void {
 function safeCall<A extends any[], R>(
     func: (...args: A) => R,
     ...args: A
-  ): R {
+  ): R | undefined {
 
     try {
       return func.apply({}, args);
@@ -319,9 +313,22 @@ function safeCall<A extends any[], R>(
 
       msg += e;
 
-      if (e?.stack)
+      if (e instanceof Error && e?.stack)
         msg += `\n${e.stack}`;
 
       console.error(msg);
+    }
+}
+
+/**
+ * Safe call wrapper function.
+ * @param func The function to wrap
+ * @returns A function
+ */
+function safeCallWrapper<A extends any[], R>(
+    func: (...args: A) => R
+  ): ((...args: A) => R | undefined) {
+    return function (...args: A): R | undefined {
+      return safeCall(func, ...args);
     }
 }
