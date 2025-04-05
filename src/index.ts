@@ -6,7 +6,7 @@
 +* MCPEDL: https://mcpedl.com/debug-stick
 +* GitHub: https://github.com/vytdev/debug-stick
 +*
-+* Script last updated: February 27, 2025
++* Script last updated: April 5, 2025
 +*
 +* Copyright (c) 2023-2025 VYT <https://vytdev.github.io>
 +* This project is licensed under the MIT License.
@@ -148,7 +148,7 @@ function displayBlockInfo(player: Player, block: Block) {
   if (block.isLiquid)   info += "liquid";
   else if (block.isAir) info += "gas";
   else                  info += "solid";
-  info += "\n§7hard block§8: " + (block.isSolid ? "§ayes" : "§cno");
+  //info += "\n§7hard block§8: " + (block.isSolid ? "§ayes" : "§cno");
   info += "\n§7redstone power§8: §c" + (block.getRedstonePower() ?? 0);
   // The block states
   Object.entries(getBlockStates(block)).forEach(([k, v]) => {
