@@ -24,10 +24,11 @@ Edition 1.20.0 and above.
 
 ### How to Obtain
 
-- Download the add-on from the [releases section][releases] or directly [here][dl].
+- Download the add-on from the [releases section][releases], or download the
+  latest version (for the most recent Minecraft release) directly [here][dl].
 - Import the add-on into Minecraft.
 - Activate it in your world.
-- Enable Experimental Beta APIs and Holiday Creator Features.
+- \* Enable Experimental `Beta APIs` and `Holiday Creator Features`.
 - Open your world.
 - Enter the following command in the chat:
 
@@ -35,12 +36,18 @@ Edition 1.20.0 and above.
     /give @s vyt:debug_stick
     ```
 
-Starting from version 1.2.0 (mc 1.20.30), the Holiday Creator Features
-experimental toggle is no longer required.
+> [!NOTE]
+> As of version 1.2.0 (mc 1.20.30), the `Holiday Creator Features` experiment
+> is no longer required.
+
+> [!NOTE]
+> As of version 1.15.0 (mc 1.21.70), the `Beta APIs` experiment
+> is no longer required.
 
 ### Limitations
 
-- Some block properties from Minecraft Java Edition are not accessible.
+- Some block properties from Minecraft: Java Edition are not accessible due to
+  platform differences and parity limitations.
 
 ### Contribution
 
