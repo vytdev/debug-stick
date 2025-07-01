@@ -21,7 +21,10 @@ import {
   ItemStack,
   LiquidType,
   world,
-  system
+  system,
+  ItemCustomComponent,
+  ItemComponentMineBlockEvent,
+  ItemComponentUseOnEvent,
 } from "@minecraft/server";
 
 import {
@@ -39,35 +42,46 @@ type BlockStateValue = boolean | number | string;
 const DEBUG_STICK_ID = "vyt:debug_stick";
 
 
-// Some event listeners. Listens for entityHitBkock
-// and itemUseOn events, which triggers an action onto
-// the debug stick
-world.afterEvents.entityHitBlock.subscribe(safeCallWrapper((ev) => {
-  if (ev.damagingEntity.typeId != "minecraft:player")
-    return;
-  const player = getPlayerByID(ev.damagingEntity.id);
-  if (!player)
-    return;
-  if (!isHoldingDebugStick(player))
-    return;
-  changeSelectedProperty(player, ev.hitBlock);
-}));
+
+class DebugStickEvents implements ItemCustomComponent {
+
+  constructor() {
+    this.onMineBlock = safeCallWrapper(this.onMineBlock).bind(this);
+    this.onUseOn = safeCallWrapper(this.onUseOn).bind(this);
+  }
+
+  onMineBlock(ev: ItemComponentMineBlockEvent) {
+    if (ev.source.typeId != "minecraft:player")
+      return;
+    const player = getPlayerByID(ev.source.id);
+    if (!player)
+      return;
+    if (!isHoldingDebugStick(player))
+      return;
+    changeSelectedProperty(player, ev.block);
+  }
+
+  onUseOn(ev: ItemComponentUseOnEvent) {
+    if (ev.source.typeId != "minecraft:player")
+      return;
+    if (ev.itemStack?.typeId != DEBUG_STICK_ID)
+      return;
+    const player = getPlayerByID(ev.source.id);
+    if (!player)
+      return;
+    if (player.isSneaking)
+      displayBlockInfo(player, ev.block);
+    else
+      updateBlockProperty(player, ev.block);
+  }
+}
 
 
-world.beforeEvents.itemUseOn.subscribe(safeCallWrapper((ev) => {
-  if (ev.source.typeId != "minecraft:player")
-    return;
-  if (ev.itemStack?.typeId != DEBUG_STICK_ID)
-    return;
-  ev.cancel = true;
-  const player = getPlayerByID(ev.source.id);
-  if (!player)
-    return;
-  if (player.isSneaking)
-    displayBlockInfo(player, ev.block);
-  else
-    updateBlockProperty(player, ev.block);
-}));
+system.beforeEvents.startup.subscribe((ev) => {
+  ev.itemComponentRegistry.registerCustomComponent(
+      DEBUG_STICK_ID, new DebugStickEvents());
+});
+
 
 
 // Players should not be able to break blocks using
@@ -175,11 +189,19 @@ const record: Record<string, Record<string, string>> = {};
  * @param msg The message
  * @param player The player to message
  */
-function message(msg: string, player: Player) {
-  return player
-    .runCommandAsync(
-      `titleraw @s actionbar {"rawtext":[{"text":${JSON.stringify(msg)}}]}`
-    );
+async function message(msg: string, player: Player) {
+  return new Promise((res, rej) => {
+    system.run(() => {
+      try {
+        res(player.runCommand(
+          `titleraw @s actionbar {"rawtext":[{"text":${JSON.stringify(msg)}}]}`
+        ));
+      }
+      catch (e) {
+        rej(e);
+      }
+    });
+  });
 }
 
 /**
