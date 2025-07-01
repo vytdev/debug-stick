@@ -11,13 +11,10 @@
     },
 
     "components": {
-      "minecraft:icon": {
-        "texture": "stick"
-      },
+      "minecraft:custom_component": [ "vyt:debug_stick" ],
+      "minecraft:icon": { "texture": "stick" },
       "minecraft:hand_equipped": true,
-      "minecraft:display_name": {
-        "value": "§dDebug Stick§r"
-      },
+      "minecraft:display_name": { "value": "§dDebug Stick§r" },
       "minecraft:max_stack_size": 1,
       "minecraft:can_destroy_in_creative": false,
       "minecraft:glint": true
