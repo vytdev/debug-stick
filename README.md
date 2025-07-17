@@ -1,6 +1,6 @@
 <div align="center">
 
-![icon][logo]
+![icon][img-logo]
 
 # Debug Stick
 
