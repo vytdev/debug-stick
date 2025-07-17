@@ -1,6 +1,6 @@
 <div align="center">
 
-![icon](pack/pack_icon.png)
+![icon][logo]
 
 # Debug Stick
 
@@ -11,7 +11,7 @@ exclusive from Minecraft: Java Edition.
 
 </div>
 
-> [*Now on CurseForge!*](https://www.curseforge.com/minecraft-bedrock/addons/debug-stick)
+> [*Now on CurseForge!*][curseforge]
 
 Ever wish Bedrock had Java's debug stick? Yeah, me too &mdash; so I made one.
 
@@ -29,6 +29,8 @@ to choose what you wanna change. Sneak and tap to get detailed info.
 - Sneak + tap = show detailed infos about a block (more on that below!)
 
 ### 🔍 Block Viewer (Bonus Feature!)
+
+![Block Viewer Image][img-blk-viewer]
 
 This is a Bedrock-only thing I've added! Just sneak and tap a block to get all
 kinds of infos you may need:
@@ -82,3 +84,6 @@ Licensed under the MIT License.
 [curseforge]: https://www.curseforge.com/minecraft-bedrock/addons/debug-stick
 [releases]: https://github.com/vytdev/debug-stick/releases
 [dload]: https://www.curseforge.com/minecraft-bedrock/addons/debug-stick/files
+
+[img-logo]: raw.github.com/vytdev/debug-stick/master/pack/pack_icon.png
+[img-blk-viewer]: raw.github.com/vytdev/debug-stick/master/doc/img1.jpeg
