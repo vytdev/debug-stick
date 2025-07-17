@@ -11,7 +11,7 @@ exclusive from Minecraft: Java Edition.
 
 </div>
 
-> [*Now in CurseForge!*](https://www.curseforge.com/minecraft-bedrock/addons/debug-stick)
+> [*Now on CurseForge!*](https://www.curseforge.com/minecraft-bedrock/addons/debug-stick)
 
 Ever wish Bedrock had Java's debug stick? Yeah, me too &mdash; so I made one.
 
@@ -48,9 +48,9 @@ Very useful to mapmakers, redstoners, or just curious players!
 
 ### 🎁 How To Get It?
 
-1. Download the add-on
-2. Import the add-on to Minecraft
-3. Activate it in your world
+1. [Download the add-on][dload] for your Minecraft version.
+2. Import the add-on to Minecraft.
+3. Activate it in your world.
 4. If your Minecraft version is *lower than 1.20.30*, enable
    `Holiday Creator Features` experiment.
 5. If your Minecraft version is *lower than 1.21.70*, enable
@@ -68,9 +68,17 @@ stay in school and keep the add-on updated! ❤️
 
 ### License
 
-Copyright &copy; 2023-2025 Vincent Yanzee J. Tan. Licensed under the MIT License.
+This add-on is open-source! This means its source code is available to the
+public. You can find the source code here:
+https://github.com/vytdev/debug-stick
+
+Copyright &copy; 2023-2025 Vincent Yanzee J. Tan.
+Licensed under the MIT License.
+
+
+<!-- long links -->
 
 [mcpedl]: https://mcpedl.com/debug-stick
 [curseforge]: https://www.curseforge.com/minecraft-bedrock/addons/debug-stick
 [releases]: https://github.com/vytdev/debug-stick/releases
-[dl]: https://github.com/vytdev/debug-stick/releases/latest/download/debug-stick.mcpack
+[dload]: https://www.curseforge.com/minecraft-bedrock/addons/debug-stick/files
