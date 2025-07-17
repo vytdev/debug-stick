@@ -4,58 +4,73 @@
 
 # Debug Stick
 
-This add-on implements a debug stick based on Minecraft: Java Edition.
+This add-on is a port of the infamous Debug Stick item, that was
+exclusive from Minecraft: Java Edition.
+
+[**MCPEDL**][mcpedl] &middot; [**CurseForge**][curseforge]
 
 </div>
 
-> [*Now available on MCPEDL!*](https://mcpedl.com/debug-stick/)
+> [*Now in CurseForge!*](https://www.curseforge.com/minecraft-bedrock/addons/debug-stick)
 
-### Features
+Ever wish Bedrock had Java's debug stick? Yeah, me too &mdash; so I made one.
 
-Similar to Java Edition, you can:
+This add-on lets you mess with the "block properties" in-game, just like the
+Java-exclusive debug stick item. Tap blocks to change their states. Long-press
+to choose what you wanna change. Sneak and tap to get detailed info.
 
-- Modify block properties
-- Update property values
-- View messages on the action bar
-- Block viewer (as of 1.6.0, mc 1.20.60)
+### ✨ What You Can Do?
 
-This add-on has been tested and functions correctly with Minecraft: Bedrock
-Edition 1.20.0 and above.
+- Tap blocks to cycle through their states (e.g., waterlog chests, lit or
+  unlit furnaces, make ladders stick on air, etc.)
+- Long press to choose what you wanna change (e.g., direction of the block,
+  type of wood, etc.)
+- Action bar msgs help you figure out what you're changing!
+- Sneak + tap = show detailed infos about a block (more on that below!)
 
-### How to Obtain
+### 🔍 Block Viewer (Bonus Feature!)
 
-- Download the add-on from the [releases section][releases], or download the
-  latest version (for the most recent Minecraft release) directly [here][dl].
-- Import the add-on into Minecraft.
-- Activate it in your world.
-- \* Enable Experimental `Beta APIs` and `Holiday Creator Features`.
-- Open your world.
-- Enter the following command in the chat:
+This is a Bedrock-only thing I've added! Just sneak and tap a block to get all
+kinds of infos you may need:
 
-    ```text
-    /give @s vyt:debug_stick
-    ```
+- **Block ID** (i.e., `minecraft:log`)
+- **Location** (`0 1 2`)
+- **Matter state** (solid, liquid, gas)
+- **Redstone power** (amount of redstone, 0-15)
+- **Hard block** (passable by arrows?)
+- **Property states** (`pillar_axis`, `waterlogged`, etc.)
+- **Tags** (`#wood`, `#log`, etc.)
+
+Very useful to mapmakers, redstoners, or just curious players!
 
 > [!NOTE]
-> As of version 1.2.0 (mc 1.20.30), the `Holiday Creator Features` experiment
-> is no longer required.
+> This feature requires Minecraft Bedrock 1.20.60 or higher
 
-> [!NOTE]
-> As of version 1.15.0 (mc 1.21.70), the `Beta APIs` experiment
-> is no longer required.
+### 🎁 How To Get It?
 
-### Limitations
+1. Download the add-on
+2. Import the add-on to Minecraft
+3. Activate it in your world
+4. If your Minecraft version is *lower than 1.20.30*, enable
+   `Holiday Creator Features` experiment.
+5. If your Minecraft version is *lower than 1.21.70*, enable
+   `Beta APIs` experiment.
+6. Load up your world!
+7. Type `/give @s vyt:debug_stick`, or check the Creative menu.
+8. That's it!
 
-- Some block properties from Minecraft: Java Edition are not accessible due to
-  platform differences and parity limitations.
+### 🎉 Support
 
-### Contribution
+If this helped you out, consider supporting me on Ko-fi! Every bit helps me
+stay in school and keep the add-on updated! ❤️
 
-Feel free to contribute to the add-on.
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/W7W51I5VSO)
 
 ### License
 
 Copyright &copy; 2023-2025 Vincent Yanzee J. Tan. Licensed under the MIT License.
 
+[mcpedl]: https://mcpedl.com/debug-stick
+[curseforge]: https://www.curseforge.com/minecraft-bedrock/addons/debug-stick
 [releases]: https://github.com/vytdev/debug-stick/releases
 [dl]: https://github.com/vytdev/debug-stick/releases/latest/download/debug-stick.mcpack
