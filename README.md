@@ -85,5 +85,5 @@ Licensed under the MIT License.
 [releases]: https://github.com/vytdev/debug-stick/releases
 [dload]: https://www.curseforge.com/minecraft-bedrock/addons/debug-stick/files
 
-[img-logo]: raw.github.com/vytdev/debug-stick/master/pack/pack_icon.png
-[img-blk-viewer]: raw.github.com/vytdev/debug-stick/master/doc/img1.jpeg
+[img-logo]: https://raw.github.com/vytdev/debug-stick/master/pack/pack_icon.png
+[img-blk-viewer]: https://raw.github.com/vytdev/debug-stick/master/doc/img1.jpeg
