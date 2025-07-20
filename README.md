@@ -19,21 +19,21 @@ This add-on lets you mess with the "block properties" in-game, just like the
 Java-exclusive debug stick item. Tap blocks to change their states. Long-press
 to choose what you wanna change. Sneak and tap to get detailed info.
 
-## ✨ What You Can Do?
+## ✨ What Can You Do?
 
-- Tap blocks to cycle through their states (e.g., waterlog chests, lit or
-  unlit furnaces, make ladders stick on air, etc.)
-- Long press to choose what you wanna change (e.g., direction of the block,
-  type of wood, etc.)
-- Action bar msgs help you figure out what you're changing!
-- Sneak + tap = show detailed infos about a block (more on that below!)
+- **Tap blocks** to cycle through their states (e.g., waterlog chests, lit
+  or unlit furnaces, make ladders stick on air, etc.)
+- **Long-press** to choose what you wanna change (e.g., direction of the
+  block, type of wood, etc.)
+- **Sneak + tap** to show detailed info about a block (more on that below!)
+- **Actionbar msgs** help you figure out what you're changing!
 
 ## 🔍 Block Viewer (Bonus Feature!)
 
 ![Block Viewer Image][img-blk-viewer]
 
 This is a Bedrock-only thing I've added! Just sneak and tap a block to get all
-kinds of infos you may need:
+kinds of info you may need:
 
 - **Block ID** (i.e., `minecraft:log`)
 - **Location** (`0 1 2`)
@@ -60,6 +60,37 @@ Very useful to mapmakers, redstoners, or just curious players!
 6. Load up your world!
 7. Type `/give @s vyt:debug_stick`, or check the Creative menu.
 8. That's it!
+
+## 🧱 Version Compatibility
+
+This add-on supports Minecraft Bedrock **1.20.0 and above**.
+
+- "Block Viewer" requires MCBE >=1.20.60
+- Enable `Holiday Creator Features` for MCBE <1.20.30
+- Enable `Beta APIs` for MCBE <1.21.70
+
+Make sure you download the version that matches your Minecraft version.
+
+### 📦 On CurseForge
+
+If you're on mobile, switch to "Desktop Mode" so the download button
+appears. Then:
+
+1. Click "Filter By" (on the left)
+2. Select your Minecraft version
+3. Pick the matching add-on release
+4. Click "Download" (the middle button, not the one on the far right)
+
+### 📦 On GitHub
+
+Each list the Minecraft versions it was tested with, like:
+
+> Tested with Minecraft: 1.21.80, 1.21.81/82, 1.21.90, 1.21.92
+
+If your Minecraft version is listed, that's the one you want. Then:
+
+1. Open the "Assets" section
+2. Download either the `.zip` or `.mcpack` file
 
 ## 🎉 Support
 
