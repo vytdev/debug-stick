@@ -6,7 +6,7 @@
 +* MCPEDL: https://mcpedl.com/debug-stick
 +* GitHub: https://github.com/vytdev/debug-stick
 +*
-+* Script last updated: April 5, 2025
++* Script last updated: July 22, 2025
 +*
 +* Copyright (c) 2023-2025 VYT <https://vytdev.github.io>
 +* This project is licensed under the MIT License.
@@ -18,7 +18,6 @@ import {
   Player,
   Block,
   BlockStates,
-  ItemStack,
   LiquidType,
   world,
   system,
@@ -56,15 +55,11 @@ class DebugStickEvents implements ItemCustomComponent {
     const player = getPlayerByID(ev.source.id);
     if (!player)
       return;
-    if (!isHoldingDebugStick(player))
-      return;
     changeSelectedProperty(player, ev.block);
   }
 
   onUseOn(ev: ItemComponentUseOnEvent) {
     if (ev.source.typeId != "minecraft:player")
-      return;
-    if (ev.itemStack?.typeId != DEBUG_STICK_ID)
       return;
     const player = getPlayerByID(ev.source.id);
     if (!player)
@@ -202,30 +197,6 @@ async function message(msg: string, player: Player) {
       }
     });
   });
-}
-
-/**
- * Returns a player's currently held item
- * @param player The player
- * @returns ItemStack or undefined
- */
-function getHeldItem(player: Player): ItemStack | undefined {
-  return player
-    .getComponent("minecraft:inventory")
-    .container
-    .getItem(player.selectedSlotIndex);
-}
-
-/**
- * Queries whether a player is currently using the debug
- * stick item
- * @param player The player
- * @returns true if the player currently holds the debug
- * stick
- */
-function isHoldingDebugStick(player: Player): boolean {
-  return getHeldItem(player)
-    ?.typeId == DEBUG_STICK_ID;
 }
 
 /**
