@@ -3,6 +3,8 @@
 This add-on is a port of the infamous Debug Stick item, that was
 exclusive from Minecraft: Java Edition.
 
+[**Skip to the download page**][lnk-website-dl]
+
 Ever wish Bedrock had Java's debug stick? Yeah, me too &mdash; so I made one.
 
 This add-on lets you mess with the "block properties" in-game, just like the
@@ -52,22 +54,15 @@ Very useful to mapmakers, redstoners, or just curious players!
 
 ## 📂 Where To Download?
 
-You can get the add-on from **CurseForge (recommended)** or
-**GitHub**. Want to support this project? The Linkvertise links help a
-lot! Not into that? No problem &mdash; backup links are right here too.
+You can get the add-on from **my website (recommended)**, **CurseForge**,
+or **GitHub**.
 
+- [Linkvertise → My Website (recommended)][lnk-website-dl]
 - [Linkvertise → CurseForge][lnk-curseforge-dl]
 - [Linkvertise → GitHub][lnk-github-dl]
-- [Backup → CurseForge][dir-curseforge-dl]
-- [Backup → GitHub][dir-github-dl]
-
-**CurseForge is best** because it helps you find the right version
-of the add-on for your Minecraft Bedrock version. Use GitHub only
-if CurseForge doesn't work for you. Just find your version there
-and download the `.mcpack` or `.zip` file.
 
 You can also download it from MCPEDL, but it might be harder to
-get the right version.
+get the right version that'll work for your specific game version.
 
 ## 🧱 Version Compatibility
 
@@ -78,6 +73,11 @@ This add-on supports Minecraft Bedrock **1.20.0 and above**.
 - Enable `Beta APIs` for MCBE <1.21.70
 
 Make sure you download the version that matches your Minecraft version.
+
+### 📦 On My Website (recommended)
+
+This is the **easiest way**. Just find your Minecraft version and click
+the download link. It redirects to and auto-downloads via CurseForge.
 
 ### 📦 On CurseForge
 
@@ -91,7 +91,7 @@ appears. Then:
 
 ### 📦 On GitHub
 
-Each list the Minecraft versions it was tested with, like:
+Each release lists the Minecraft versions it was tested with, like:
 
 `Tested with Minecraft: 1.21.80, 1.21.81/82, 1.21.90, 1.21.92`
 
@@ -116,5 +116,4 @@ Licensed under the MIT License.
 
 [lnk-curseforge-dl]: https://link-hub.net/1373084/Ac5n1vWxuSms
 [lnk-github-dl]: https://direct-link.net/1373084/hhcQIngXp7Fc
-[dir-curseforge-dl]: https://www.curseforge.com/minecraft-bedrock/addons/debug-stick/files
-[dir-github-dl]: https://github.com/vytdev/debug-stick/releases
+[lnk-website-dl]: https://direct-link.net/1373084/EMeQm1IBE4wK
