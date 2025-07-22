@@ -1,5 +1,5 @@
 {
-  "format_version": "1.20.20",
+  "format_version": "1.21.90",
 
   "minecraft:item": {
 
@@ -11,7 +11,7 @@
     },
 
     "components": {
-      "minecraft:custom_component": [ "vyt:debug_stick" ],
+      "vyt:debug_stick": {},
       "minecraft:icon": { "texture": "stick" },
       "minecraft:hand_equipped": true,
       "minecraft:display_name": { "value": "§dDebug Stick§r" },
