@@ -55,21 +55,25 @@ Very useful to mapmakers, redstoners, or just curious players!
 ## 📂 Where To Download?
 
 You can get the add-on from **my website (recommended)**, **CurseForge**,
-or **GitHub**.
-
-- [Linkvertise → My Website (recommended)][lnk-website-dl]
-- [Linkvertise → CurseForge][lnk-curseforge-dl]
-- [Linkvertise → GitHub][lnk-github-dl]
-
-You can also download it from MCPEDL, but it might be harder to
-get the right version that'll work for your specific game version.
+or **GitHub**. You can also download it from MCPEDL, but it might be
+harder to get the right version that'll work for your specific game version.
 
 ### 📦 On My Website (recommended)
 
+[Linkvertise → My Website (recommended)][lnk-website-dl]
+
 This is the **easiest way**. Just find your Minecraft version and click
-the download link. It redirects to and auto-downloads via CurseForge.
+the download link. How this works?
+
+1. Linkvertise (1-time step)
+2. Pick your Minecraft version and download.
+
+You'll be sent to CurseForge. The add-on will auto-download after.
+No extra steps needed.
 
 ### 📦 On CurseForge
+
+[Linkvertise → CurseForge][lnk-curseforge-dl]
 
 If you're on mobile, switch to "Desktop Mode" so the download button
 appears. Then:
@@ -80,6 +84,8 @@ appears. Then:
 4. Click "Download" (the middle button, not the one on the far right)
 
 ### 📦 On GitHub
+
+[Linkvertise → GitHub][lnk-github-dl]
 
 Each release lists the Minecraft versions it was tested with, like:
 
