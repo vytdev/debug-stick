@@ -64,16 +64,6 @@ or **GitHub**.
 You can also download it from MCPEDL, but it might be harder to
 get the right version that'll work for your specific game version.
 
-## 🧱 Version Compatibility
-
-This add-on supports Minecraft Bedrock **1.20.0 and above**.
-
-- "Block Viewer" requires MCBE >=1.20.60
-- Enable `Holiday Creator Features` for MCBE <1.20.30
-- Enable `Beta APIs` for MCBE <1.21.70
-
-Make sure you download the version that matches your Minecraft version.
-
 ### 📦 On My Website (recommended)
 
 This is the **easiest way**. Just find your Minecraft version and click
@@ -99,6 +89,16 @@ If your Minecraft version is listed, that's the one you want. Then:
 
 1. Open the "Assets" section
 2. Download either the `.zip` or `.mcpack` file
+
+## 🧱 Version Compatibility
+
+This add-on supports Minecraft Bedrock **1.20.0 and above**.
+
+- "Block Viewer" requires MCBE >=1.20.60
+- Enable `Holiday Creator Features` for MCBE <1.20.30
+- Enable `Beta APIs` for MCBE <1.21.70
+
+Make sure you download the version that matches your Minecraft version.
 
 ## 📜 License
 

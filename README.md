@@ -71,27 +71,6 @@ This add-on supports Minecraft Bedrock **1.20.0 and above**.
 
 Make sure you download the version that matches your Minecraft version.
 
-### 📦 On CurseForge
-
-If you're on mobile, switch to "Desktop Mode" so the download button
-appears. Then:
-
-1. Click "Filter By" (on the left)
-2. Select your Minecraft version
-3. Pick the matching add-on release
-4. Click "Download" (the middle button, not the one on the far right)
-
-### 📦 On GitHub
-
-Each list the Minecraft versions it was tested with, like:
-
-> Tested with Minecraft: 1.21.80, 1.21.81/82, 1.21.90, 1.21.92
-
-If your Minecraft version is listed, that's the one you want. Then:
-
-1. Open the "Assets" section
-2. Download either the `.zip` or `.mcpack` file
-
 ## 🎉 Support
 
 **If this helped you out, consider supporting me on Ko-fi**! Every bit helps
