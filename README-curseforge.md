@@ -66,8 +66,7 @@ the download link. How this works?
 1. Linkvertise (1-time step)
 2. Pick your Minecraft version and download.
 
-You'll be sent to CurseForge. The add-on will auto-download after.
-No extra steps needed.
+That's all!
 
 ### 📦 On GitHub
 
