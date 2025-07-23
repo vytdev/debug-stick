@@ -56,6 +56,13 @@ Very useful to mapmakers, redstoners, or just curious players!
 
 You can get the add-on from **my website (recommended)** or **GitHub**.
 
+You *can* download directly here on MCPEDL, but that version **might not
+work** with the latest Minecraft updates.
+
+For the **correct version that matches your Minecraft**, please use [my
+website][lnk-website-dl] or [GitHub][lnk-github-dl]. Both list all versions
+by compatibility, so you can easily get the one that works for you.
+
 ### 📦 On My Website (recommended)
 
 [Linkvertise → My Website (recommended)][lnk-website-dl]
