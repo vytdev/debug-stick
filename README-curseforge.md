@@ -54,9 +54,7 @@ Very useful to mapmakers, redstoners, or just curious players!
 
 ## 📂 Where To Download?
 
-You can get the add-on from **my website (recommended)**, **CurseForge**,
-or **GitHub**. You can also download it from MCPEDL, but it might be
-harder to get the right version that'll work for your specific game version.
+You can get the add-on from **my website (recommended)** or **GitHub**.
 
 ### 📦 On My Website (recommended)
 
@@ -70,18 +68,6 @@ the download link. How this works?
 
 You'll be sent to CurseForge. The add-on will auto-download after.
 No extra steps needed.
-
-### 📦 On CurseForge
-
-[Linkvertise → CurseForge][lnk-curseforge-dl]
-
-If you're on mobile, switch to "Desktop Mode" so the download button
-appears. Then:
-
-1. Click "Filter By" (on the left)
-2. Select your Minecraft version
-3. Pick the matching add-on release
-4. Click "Download" (the middle button, not the one on the far right)
 
 ### 📦 On GitHub
 
@@ -120,6 +106,5 @@ Licensed under the MIT License.
 
 [img-blk-viewer]: https://raw.github.com/vytdev/debug-stick/master/doc/img1.jpeg
 
-[lnk-curseforge-dl]: https://link-hub.net/1373084/Ac5n1vWxuSms
-[lnk-github-dl]: https://direct-link.net/1373084/hhcQIngXp7Fc
 [lnk-website-dl]: https://direct-link.net/1373084/EMeQm1IBE4wK
+[lnk-github-dl]: https://direct-link.net/1373084/hhcQIngXp7Fc
