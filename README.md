@@ -50,7 +50,7 @@ Very useful to mapmakers, redstoners, or just curious players!
 
 ## 🎁 How To Get It?
 
-1. [Download the add-on][dload] for your Minecraft version.
+1. [Download the add-on][releases] for your Minecraft version.
 2. Import the add-on to Minecraft.
 3. Activate it in your world.
 4. If your Minecraft version is *lower than 1.20.30*, enable
