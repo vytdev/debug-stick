@@ -54,14 +54,17 @@ Very useful to mapmakers, redstoners, or just curious players!
 
 ## 📂 Where To Download?
 
-You can get the add-on from **my website (recommended)** or **GitHub**.
+To get the **correct version for your Minecraft**, please use one of the
+official sources below. These platforms list all versions of the add-on
+along with their compatibility, so you can easily find the one that matches
+your game version.
 
-You *can* download directly here on MCPEDL, but that version **might not
-work** with the latest Minecraft updates.
+You can also download directly here on MCPEDL, though it may be a bit
+harder to ensure you're selecting the right version.
 
-For the **correct version that matches your Minecraft**, please use [my
-website][lnk-website-dl] or [GitHub][lnk-github-dl]. Both list all versions
-by compatibility, so you can easily get the one that works for you.
+**Important:** Only download from the sources listed below (or here on
+MCPEDL). Other sites may host *unofficial, outdated, or unsafe copies*
+that could contain malware or break your game.
 
 ### 📦 On My Website (recommended)
 
@@ -70,10 +73,21 @@ by compatibility, so you can easily get the one that works for you.
 This is the **easiest way**. Just find your Minecraft version and click
 the download link. How this works?
 
-1. Linkvertise (1-time step)
-2. Pick your Minecraft version and download.
+1. Find your Minecraft version and download.
 
 That's all!
+
+### 📦 On CurseForge
+
+[Linkvertise → CurseForge][lnk-curseforge-dl]
+
+If you're on mobile, switch to "Desktop Mode" so the download button
+appears. Then:
+
+1. Click "Filter By" (on the left)
+2. Select your Minecraft version
+3. Pick the matching add-on release
+4. Click "Download" (the middle button, not the one on the far right)
 
 ### 📦 On GitHub
 
@@ -113,4 +127,5 @@ Licensed under the MIT License.
 [img-blk-viewer]: https://raw.github.com/vytdev/debug-stick/master/doc/img1.jpeg
 
 [lnk-website-dl]: https://direct-link.net/1373084/EMeQm1IBE4wK
+[lnk-curseforge-dl]: https://link-hub.net/1373084/Ac5n1vWxuSms
 [lnk-github-dl]: https://direct-link.net/1373084/hhcQIngXp7Fc
