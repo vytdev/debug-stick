@@ -1,9 +1,9 @@
 # Debug Stick
 
-This add-on is a port of the infamous Debug Stick item, that was
-exclusive from Minecraft: Java Edition.
+This add-on is a port of the infamous Debug Stick item that was
+exclusive to Minecraft: Java Edition.
 
-[**Skip to the download page**][lnk-website-dl]
+[**Skip to the download page**][curseforge-dl]
 
 Ever wish Bedrock had Java's debug stick? Yeah, me too &mdash; so I made one.
 
@@ -18,7 +18,7 @@ to choose what you wanna change. Sneak and tap to get detailed info.
 - **Long-press** to choose what you wanna change (e.g., direction of the
   block, type of wood, etc.)
 - **Sneak + tap** to show detailed info about a block (more on that below!)
-- **Actionbar msgs** help you figure out what you're changing!
+- **Actionbar messages** help you figure out what you're changing!
 
 ## 🔍 Block Viewer (Bonus Feature!)
 
@@ -35,7 +35,7 @@ kinds of info you may need:
 - **Property states** (`pillar_axis`, `waterlogged`, etc.)
 - **Tags** (`#wood`, `#log`, etc.)
 
-Very useful to mapmakers, redstoners, or just curious players!
+Very useful for mapmakers, redstoners, or just curious players!
 
 *(This feature requires Minecraft Bedrock 1.20.60 or higher)*
 
@@ -49,7 +49,7 @@ Very useful to mapmakers, redstoners, or just curious players!
 5. If your Minecraft version is *lower than 1.21.70*, enable
    `Beta APIs` experiment.
 6. Load up your world!
-7. Type `/give @s vyt:debug_stick`, or check the Creative menu.
+7. Type `/give @s vyt:debug_stick`, or find it in the Creative menu.
 8. That's it!
 
 ## 📂 Where To Download?
@@ -66,20 +66,7 @@ harder to ensure you're selecting the right version.
 MCPEDL). Other sites may host *unofficial, outdated, or unsafe copies*
 that could contain malware or break your game.
 
-### 📦 On My Website (recommended)
-
-[Linkvertise → My Website (recommended)][lnk-website-dl]
-
-This is the **easiest way**. Just find your Minecraft version and click
-the download link. How this works?
-
-1. Find your Minecraft version and download.
-
-That's all!
-
-### 📦 On CurseForge
-
-[Linkvertise → CurseForge][lnk-curseforge-dl]
+### 📦 On [CurseForge][curseforge-dl] (primary)
 
 If you're on mobile, switch to "Desktop Mode" so the download button
 appears. Then:
@@ -89,9 +76,7 @@ appears. Then:
 3. Pick the matching add-on release
 4. Click "Download" (the middle button, not the one on the far right)
 
-### 📦 On GitHub
-
-[Linkvertise → GitHub][lnk-github-dl]
+### 📦 On [GitHub][github-dl] (mirror)
 
 Each release lists the Minecraft versions it was tested with, like:
 
@@ -101,6 +86,16 @@ If your Minecraft version is listed, that's the one you want. Then:
 
 1. Open the "Assets" section
 2. Download either the `.zip` or `.mcpack` file
+
+### 📦 On [My Website][website-dl] (alternative)
+
+If CurseForge didn't work and GitHub feels a bit clunky, you can use this
+simpler alternative:
+
+1. Find your Minecraft version
+2. Click the link beside it
+
+The download links go directly to GitHub. No ads or redirects.
 
 ## 🧱 Version Compatibility
 
@@ -126,6 +121,14 @@ Licensed under the MIT License.
 
 [img-blk-viewer]: https://raw.github.com/vytdev/debug-stick/master/doc/img1.jpeg
 
+[curseforge-dl]: https://www.curseforge.com/minecraft-bedrock/addons/debug-stick/files
+[github-dl]: https://github.com/vytdev/debug-stick/releases
+[website-dl]: https://vytdev.github.io/download-debug-stick
+
+<!--
+Should've used these earlier...
+
 [lnk-website-dl]: https://direct-link.net/1373084/EMeQm1IBE4wK
 [lnk-curseforge-dl]: https://link-hub.net/1373084/Ac5n1vWxuSms
 [lnk-github-dl]: https://direct-link.net/1373084/hhcQIngXp7Fc
+-->

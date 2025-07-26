@@ -4,8 +4,8 @@
 
 # Debug Stick
 
-This add-on is a port of the infamous Debug Stick item, that was
-exclusive from Minecraft: Java Edition.
+This add-on is a port of the infamous Debug Stick item that was
+exclusive to Minecraft: Java Edition.
 
 [**MCPEDL**][mcpedl] &middot; [**CurseForge**][curseforge]
 
@@ -26,7 +26,7 @@ to choose what you wanna change. Sneak and tap to get detailed info.
 - **Long-press** to choose what you wanna change (e.g., direction of the
   block, type of wood, etc.)
 - **Sneak + tap** to show detailed info about a block (more on that below!)
-- **Actionbar msgs** help you figure out what you're changing!
+- **Actionbar messages** help you figure out what you're changing!
 
 ## 🔍 Block Viewer (Bonus Feature!)
 
@@ -43,7 +43,7 @@ kinds of info you may need:
 - **Property states** (`pillar_axis`, `waterlogged`, etc.)
 - **Tags** (`#wood`, `#log`, etc.)
 
-Very useful to mapmakers, redstoners, or just curious players!
+Very useful for mapmakers, redstoners, or just curious players!
 
 > [!NOTE]
 > This feature requires Minecraft Bedrock 1.20.60 or higher
@@ -58,7 +58,7 @@ Very useful to mapmakers, redstoners, or just curious players!
 5. If your Minecraft version is *lower than 1.21.70*, enable
    `Beta APIs` experiment.
 6. Load up your world!
-7. Type `/give @s vyt:debug_stick`, or check the Creative menu.
+7. Type `/give @s vyt:debug_stick`, or find it in the Creative menu.
 8. That's it!
 
 ## 🧱 Version Compatibility
