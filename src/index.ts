@@ -6,7 +6,7 @@
 +* MCPEDL: https://mcpedl.com/debug-stick
 +* GitHub: https://github.com/vytdev/debug-stick
 +*
-+* Script last updated: July 22, 2025
++* Script last updated: July 27, 2025
 +*
 +* Copyright (c) 2023-2025 VYT <https://vytdev.github.io>
 +* This project is licensed under the MIT License.
@@ -20,9 +20,7 @@ import {
   BlockStates,
   LiquidType,
   world,
-  system,
-  ItemCustomComponent,
-  ItemComponentUseOnEvent,
+  system
 } from "@minecraft/server";
 
 import {
@@ -40,43 +38,22 @@ type BlockStateValue = boolean | number | string;
 const DEBUG_STICK_ID = "vyt:debug_stick";
 
 
+world.beforeEvents.playerInteractWithBlock.subscribe(safeCallWrapper((ev) => {
+  if (ev.itemStack?.typeId != DEBUG_STICK_ID)
+    return;
+  ev.cancel = true;
+  if (ev.player.isSneaking)
+    displayBlockInfo(ev.player, ev.block);
+  else
+    updateBlockProperty(ev.player, ev.block);
+}));
 
-class DebugStickEvents implements ItemCustomComponent {
-
-  constructor() {
-    this.onUseOn = safeCallWrapper(this.onUseOn).bind(this);
-  }
-
-  onUseOn(ev: ItemComponentUseOnEvent) {
-    if (ev.source.typeId != "minecraft:player")
-      return;
-    const player = getPlayerByID(ev.source.id);
-    if (!player)
-      return;
-    if (player.isSneaking)
-      displayBlockInfo(player, ev.block);
-    else
-      updateBlockProperty(player, ev.block);
-  }
-}
-
-
-// Players should not be able to break blocks using
-// the debug stick in survival
-//
-// TODO: explore other alternatives
 world.beforeEvents.playerBreakBlock.subscribe(safeCallWrapper((ev) => {
   if (ev.itemStack?.typeId != DEBUG_STICK_ID)
     return;
   ev.cancel = true;
   changeSelectedProperty(ev.player, ev.block);
 }));
-
-
-system.beforeEvents.startup.subscribe((ev) => {
-  ev.itemComponentRegistry.registerCustomComponent(
-      DEBUG_STICK_ID, new DebugStickEvents());
-});
 
 
 /*============================================================================*\
@@ -186,17 +163,6 @@ async function message(msg: string, player: Player) {
       }
     });
   });
-}
-
-/**
- * Utility function to return a player class from an entity ID
- * @param id The entity ID
- * @returns Player instance or undefined
- */
-function getPlayerByID(id: string): Player | undefined {
-  return world
-    .getAllPlayers()
-    .find(v => v.id == id);
 }
 
 /**
