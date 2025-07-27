@@ -22,7 +22,6 @@ import {
   world,
   system,
   ItemCustomComponent,
-  ItemComponentMineBlockEvent,
   ItemComponentUseOnEvent,
 } from "@minecraft/server";
 
@@ -45,17 +44,7 @@ const DEBUG_STICK_ID = "vyt:debug_stick";
 class DebugStickEvents implements ItemCustomComponent {
 
   constructor() {
-    this.onMineBlock = safeCallWrapper(this.onMineBlock).bind(this);
     this.onUseOn = safeCallWrapper(this.onUseOn).bind(this);
-  }
-
-  onMineBlock(ev: ItemComponentMineBlockEvent) {
-    if (ev.source.typeId != "minecraft:player")
-      return;
-    const player = getPlayerByID(ev.source.id);
-    if (!player)
-      return;
-    changeSelectedProperty(player, ev.block);
   }
 
   onUseOn(ev: ItemComponentUseOnEvent) {
@@ -72,13 +61,6 @@ class DebugStickEvents implements ItemCustomComponent {
 }
 
 
-system.beforeEvents.startup.subscribe((ev) => {
-  ev.itemComponentRegistry.registerCustomComponent(
-      DEBUG_STICK_ID, new DebugStickEvents());
-});
-
-
-
 // Players should not be able to break blocks using
 // the debug stick in survival
 //
@@ -87,7 +69,14 @@ world.beforeEvents.playerBreakBlock.subscribe(safeCallWrapper((ev) => {
   if (ev.itemStack?.typeId != DEBUG_STICK_ID)
     return;
   ev.cancel = true;
+  changeSelectedProperty(ev.player, ev.block);
 }));
+
+
+system.beforeEvents.startup.subscribe((ev) => {
+  ev.itemComponentRegistry.registerCustomComponent(
+      DEBUG_STICK_ID, new DebugStickEvents());
+});
 
 
 /*============================================================================*\
