@@ -1,16 +1,18 @@
 /*============================================================================*\
 +*
-+* This is the core of the debug stick add-on for Minecraft: Bedrock Edition
++* This is the core of the debug stick add-on for Minecraft: Bedrock Edition.
 +*
 +* Official links:
+** CurseForge: https://www.curseforge.com/minecraft-bedrock/addons/debug-stick
 +* MCPEDL: https://mcpedl.com/debug-stick
 +* GitHub: https://github.com/vytdev/debug-stick
 +*
-+* Script last updated: July 27, 2025
++* Script last updated: July 28, 2025
 +*
 +* Copyright (c) 2023-2025 VYT <https://vytdev.github.io>
 +* This project is licensed under the MIT License.
-+* See LICENSE for more details.
+** This software is provided "as is" without warranty of any kind.
++* See LICENSE for the full terms.
 +*
 \*============================================================================*/
 
