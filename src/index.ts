@@ -1,19 +1,19 @@
 /*============================================================================*\
-+*
-+* This is the core of the debug stick add-on for Minecraft: Bedrock Edition.
-+*
-+* Official links:
-** CurseForge: https://www.curseforge.com/minecraft-bedrock/addons/debug-stick
-+* MCPEDL: https://mcpedl.com/debug-stick
-+* GitHub: https://github.com/vytdev/debug-stick
-+*
-+* Script last updated: July 28, 2025
-+*
-+* Copyright (c) 2023-2025 VYT <https://vytdev.github.io>
-+* This project is licensed under the MIT License.
-** This software is provided "as is" without warranty of any kind.
-+* See LICENSE for the full terms.
-+*
+
+  This is the core of the debug stick add-on for Minecraft: Bedrock Edition.
+
+  Official links:
+  - CurseForge: https://www.curseforge.com/minecraft-bedrock/addons/debug-stick
+  - MCPEDL: https://mcpedl.com/debug-stick
+  - GitHub: https://github.com/vytdev/debug-stick
+
+  Script last updated: July 28, 2025
+
+  Copyright (c) 2023-2025 VYT <https://vytdev.github.io>
+  This project is licensed under the MIT License.
+  This software is provided "as is" without warranty of any kind.
+  See LICENSE for the full terms.
+
 \*============================================================================*/
 
 import {
@@ -59,7 +59,7 @@ world.beforeEvents.playerBreakBlock.subscribe(safeCallWrapper((ev) => {
 
 
 /*============================================================================*\
-+* Action functions
+  Action functions
 \*============================================================================*/
 
 /**
@@ -142,7 +142,7 @@ function displayBlockInfo(player: Player, block: Block) {
 
 
 /*============================================================================*\
-+* Utility functions
+  Utility functions
 \*============================================================================*/
 
 const record: Record<string, Record<string, string>> = {};
