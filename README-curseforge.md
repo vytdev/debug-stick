@@ -54,48 +54,26 @@ Very useful for mapmakers, redstoners, or just curious players!
 
 ## 📂 Where To Download?
 
-To get the **correct version for your Minecraft**, please use one of the
-official sources below. These platforms list all versions of the add-on
-along with their compatibility, so you can easily find the one that matches
-your game version.
+To get the **correct version for your Minecraft**, please use our CurseForge
+download page. It can easily help you sort and find the version that works
+with your game.
 
 You can also download directly here on MCPEDL, though it may be a bit
 harder to ensure you're selecting the right version.
 
-**Important:** Only download from the sources listed below (or here on
-MCPEDL). Other sites may host *unofficial, outdated, or unsafe copies*
-that could contain malware or break your game.
+**Important:** Only download from CurseForge, the official MCPEDL page, or
+our official GitHub repo. Other sites may host *unofficial, outdated, or
+unsafe copies* that could contain malware or break your game.
 
-### 📦 On [CurseForge][curseforge-dl] (primary)
+### 📦 On [CurseForge][curseforge-dl]
 
 If you're on mobile, switch to "Desktop Mode" so the download button
 appears. Then:
 
-1. Click "Filter By" (on the left)
+1. Click **"Filter By"** (on the left)
 2. Select your Minecraft version
 3. Pick the matching add-on release
-4. Click "Download" (the middle button, not the one on the far right)
-
-### 📦 On [GitHub][github-dl] (mirror)
-
-Each release lists the Minecraft versions it was tested with, like:
-
-`Tested with Minecraft: 1.21.80, 1.21.81/82, 1.21.90, 1.21.92`
-
-If your Minecraft version is listed, that's the one you want. Then:
-
-1. Open the "Assets" section
-2. Download either the `.zip` or `.mcpack` file
-
-### 📦 On [My Website][website-dl] (alternative)
-
-If CurseForge didn't work and GitHub feels a bit clunky, you can use this
-simpler alternative:
-
-1. Find your Minecraft version
-2. Click the link beside it
-
-The download links go directly to GitHub. No ads or redirects.
+4. Click **"Download"** (the middle button, not the one on the far right)
 
 ## 🧱 Version Compatibility
 
@@ -122,10 +100,11 @@ Licensed under the MIT License.
 [img-blk-viewer]: https://raw.github.com/vytdev/debug-stick/master/doc/img1.jpeg
 
 [curseforge-dl]: https://www.curseforge.com/minecraft-bedrock/addons/debug-stick/files
+
+<!--
 [github-dl]: https://github.com/vytdev/debug-stick/releases
 [website-dl]: https://vytdev.github.io/download-debug-stick
 
-<!--
 Should've used these earlier...
 
 [lnk-website-dl]: https://direct-link.net/1373084/EMeQm1IBE4wK
