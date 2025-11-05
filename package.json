@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/vytdev/debug-stick#readme",
   "dependencies": {
-    "@minecraft/server": "^2.2.0",
+    "@minecraft/server": "^2.3.0",
     "typescript": "^5.9.3"
   }
 }
