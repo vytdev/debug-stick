@@ -1,30 +1,17 @@
 {
   "name": "debug-stick",
-  "version": "1.0.0",
-  "description": "Debug stick for minecraft bedrock",
+  "type": "module",
   "scripts": {
     "test": "npx tsc",
-    "build": "npx tsc && python pack.py",
-    "clean": "rm -rf debug-stick.mcpack pack/scripts/*"
+    "build": "node tool.js build pack",
+    "clean": "node tool.js clean",
+    "watch": "node tool.js watch"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vytdev/debug-stick.git"
-  },
-  "keywords": [
-    "debug-stick",
-    "add-on",
-    "minecraft",
-    "bedrock"
-  ],
-  "author": "Vincent Yanzee J. Tan (vytdev)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/vytdev/debug-stick/issues"
-  },
-  "homepage": "https://github.com/vytdev/debug-stick#readme",
   "dependencies": {
-    "@minecraft/server": "^2.4.0",
+    "@minecraft/server": "^2.4.0"
+  },
+  "devDependencies": {
+    "jszip": "^3.10.1",
     "typescript": "^5.9.3"
   }
 }
