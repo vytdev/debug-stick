@@ -161,10 +161,7 @@ function updateBlockProperty(player: Player, block: Block) {
 
   // Handle each type separately for more efficent next value search;
   if (typeof currentValue === "number") {
-    const min = Math.min(...(valids as number[]));
-    const index = (currentValue + 1) % valids.length;
-
-    newValue = index + min;
+    newValue = (currentValue + 1) % valids.length;
   } else if (typeof currentValue === "boolean") {
     newValue = !currentValue;
   } else {
@@ -172,12 +169,7 @@ function updateBlockProperty(player: Player, block: Block) {
     if (typeof newValue === "undefined") newValue = valids[0];
   }
 
-  try {
-    setBlockState(block, property, newValue);
-  } catch (error) {
-    setBlockState(block, property, valids[0]);
-  }
-
+  setBlockState(block, property, newValue);
   setCurrentProperty(player, block.typeId, property);
 
   player.onScreenDisplay.setActionBar(`"${property}" to ${newValue}`);
