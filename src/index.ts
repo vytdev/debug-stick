@@ -22,12 +22,10 @@ import {
   BlockStates,
   LiquidType,
   world,
-  system
+  system,
 } from "@minecraft/server";
 
-import {
-  BlockStateSuperset
-} from "@minecraft/vanilla-data";
+import { BlockStateSuperset } from "@minecraft/vanilla-data";
 
 /**
  * Block state type
@@ -35,28 +33,71 @@ import {
 type BlockStateValue = boolean | number | string;
 
 /**
+ * Block state mapping type
+ */
+type BlockStatesMap = Record<string, BlockStateValue>;
+
+/**
+ * Callback function type
+ */
+type Callback<Args extends any[], Return> = (...args: Args) => Return;
+
+/**
  * The item identifier of the debug stick
  */
 const DEBUG_STICK_ID = "vyt:debug_stick";
 
+/**
+ * Message prefix for error handling
+ */
+const ERROR_MESSAGE_PREFIX = [
+  "DEBUG STICK ERROR",
+  "Please report this issue on GitHub:",
+  "  https://github.com/vytdev/debug-stick/issues/new\n",
+].join("\n");
 
-world.beforeEvents.playerInteractWithBlock.subscribe(safeCallWrapper((ev) => {
-  if (ev.itemStack?.typeId != DEBUG_STICK_ID)
-    return;
-  ev.cancel = true;
-  if (ev.player.isSneaking)
-    displayBlockInfo(ev.player, ev.block);
-  else
-    updateBlockProperty(ev.player, ev.block);
-}));
+/**
+ * Decounce map for interacting event
+ */
+const interactDebounce: WeakMap<Player, boolean> = new WeakMap();
 
-world.beforeEvents.playerBreakBlock.subscribe(safeCallWrapper((ev) => {
-  if (ev.itemStack?.typeId != DEBUG_STICK_ID)
-    return;
-  ev.cancel = true;
-  changeSelectedProperty(ev.player, ev.block);
-}));
+world.beforeEvents.playerInteractWithBlock.subscribe(
+  safeCallWrapper((event) => {
+    const { itemStack, player, block } = event;
+    if (interactDebounce.has(player)) return;
 
+    if (!itemStack) return;
+    if (itemStack.typeId !== DEBUG_STICK_ID) return;
+
+    event.cancel = true;
+
+    interactDebounce.set(player, true);
+    // afterEvent won't fire when we cancel this event
+    // So we have to use delays instend
+    system.runTimeout(() => {
+      interactDebounce.delete(player);
+    }, 5);
+
+    if (player.isSneaking) {
+      system.run(() => displayBlockInfo(player, block));
+      return;
+    }
+
+    system.run(() => updateBlockProperty(player, block));
+  })
+);
+
+world.beforeEvents.playerBreakBlock.subscribe(
+  safeCallWrapper((event) => {
+    const { itemStack, player, block } = event;
+
+    if (!itemStack) return;
+    if (itemStack.typeId !== DEBUG_STICK_ID) return;
+
+    event.cancel = true;
+    system.run(() => changeSelectedProperty(player, block));
+  })
+);
 
 /*============================================================================*\
   Action functions
@@ -70,21 +111,28 @@ world.beforeEvents.playerBreakBlock.subscribe(safeCallWrapper((ev) => {
 function changeSelectedProperty(player: Player, block: Block) {
   const states = getBlockStates(block);
   const names = Object.keys(states);
-  if (!names.length)
-    return message(`${block.typeId} has no properties`, player);
-  let prop = getCurrentProperty(player, block.typeId);
-  let val: BlockStateValue;
+
+  if (names.length === 0) {
+    player.onScreenDisplay.setActionBar(`${block.typeId} has no properties`);
+    return;
+  }
+
+  let property = getCurrentProperty(player, block.typeId);
+  let value: BlockStateValue;
+
   // Increment for the next property
-  prop = names[names.indexOf(prop) + 1];
-  val = states[prop];
+  property = names[names.indexOf(property) + 1];
+  value = states[property];
+
   // We're probably at the end of the property names
   // list, cycle back from the start.
-  if (!prop) {
-    prop = names[0];
-    val = states[prop];
+  if (!property) {
+    property = names[0];
+    value = states[property];
   }
-  setCurrentProperty(player, block.typeId, prop);
-  message(`selected "${prop}" (${val})`, player);
+
+  setCurrentProperty(player, block.typeId, property);
+  player.onScreenDisplay.setActionBar(`selected "${property}" (${value})`);
 }
 
 /**
@@ -95,22 +143,56 @@ function changeSelectedProperty(player: Player, block: Block) {
 function updateBlockProperty(player: Player, block: Block) {
   const states = getBlockStates(block);
   const names = Object.keys(states);
-  if (!names.length)
-    return message(`${block.typeId} has no properties`, player);
-  let prop = getCurrentProperty(player, block.typeId);
-  let val: BlockStateValue;
+
+  if (names.length === 0) {
+    player.onScreenDisplay.setActionBar(`${block.typeId} has no properties`);
+    return;
+  }
+
+  let property = getCurrentProperty(player, block.typeId);
+  let newValue: BlockStateValue;
+
   // Ensure that the recorded block property selection
   // is available on the block
-  if (!names.includes(prop))
-    prop = names[0];
-  const valids = getStateValidValues(prop);
-  val = valids[valids.indexOf(states[prop]) + 1];
-  if (typeof val === "undefined")
-    val = valids[0];
-  setBlockState(block, prop, val);
-  setCurrentProperty(player, block.typeId, prop);
-  message(`"${prop}" to ${val}`, player);
+  if (!names.includes(property)) property = names[0];
+
+  const valids = getStateValidValues(property);
+  const currentValue = states[property];
+
+  // Handle each type separately for more efficent next value search;
+  if (typeof currentValue === "number") {
+    newValue = (currentValue + 1) % valids.length;
+  } else if (typeof currentValue === "boolean") {
+    newValue = !currentValue;
+  } else {
+    newValue = valids[valids.indexOf(states[property]) + 1];
+    if (typeof newValue === "undefined") newValue = valids[0];
+  }
+
+  setBlockState(block, property, newValue);
+  setCurrentProperty(player, block.typeId, property);
+
+  player.onScreenDisplay.setActionBar(`"${property}" to ${newValue}`);
 }
+
+/**
+ * Block viwer helper
+ */
+const blockInfoPresets = [
+  "§l§b{BLOCK_ID}§r",
+  "§4{LOCATION_X} §a{LOCATION_Y} §9{LOCATION_Z}§r",
+  "§7Matter State§8: §e{MATTER_STATE}§r",
+  "§7Redstone Power§8: §c{REDSTONE_POWER}§r",
+].join("\n");
+
+/**
+ * Block viwer helper
+ */
+const propertyTypeColor: Record<any, string> = {
+  string: "§e",
+  number: "§3",
+  boolean: "§6",
+};
 
 /**
  * The block viewer feature
@@ -118,64 +200,65 @@ function updateBlockProperty(player: Player, block: Block) {
  * @param block
  */
 function displayBlockInfo(player: Player, block: Block) {
-  let info = "§l§b" + block.typeId + "§r";
-  // Basic info
-  info += "\n§4" + block.x + " §a" + block.y + " §9" + block.z;
-  info += "\n§7matter state§8: §e";
-  if (block.isLiquid)   info += "liquid";
-  else if (block.isAir) info += "gas";
-  else                  info += "solid";
-  //info += "\n§7hard block§8: " + (block.isSolid ? "§ayes" : "§cno");
-  info += "\n§7redstone power§8: §c" + (block.getRedstonePower() ?? 0);
-  // The block states
-  Object.entries(getBlockStates(block)).forEach(([k, v]) => {
-    info += "\n§o§7" + k + "§r§8: ";
-    if (typeof v == "string") info += "§e";
-    if (typeof v == "number") info += "§3";
-    if (typeof v == "boolean") info += "§6";
-    info += v;
-  });
-  // Additional block tags
-  block.getTags().forEach(v => info += "\n§d#" + v);
-  message(info, player);
-}
+  const location = block.location;
 
+  //Block Id
+  let info = blockInfoPresets.replace("{BLOCK_ID}", block.typeId);
+
+  // ========== Basic info ==========
+
+  //Location
+  info = info.replace("{LOCATION_X}", String(location.x));
+  info = info.replace("{LOCATION_Y}", String(location.y));
+  info = info.replace("{LOCATION_Z}", String(location.z));
+
+  // Matter State
+  info = info.replace("{MATTER_STATE}", getBlockMatterState(block));
+
+  // Redstone Power
+  const redstone_power = block.getRedstonePower() ?? 0;
+  info = info.replace("{REDSTONE_POWER}", String(redstone_power));
+
+  // Seperator
+  info += "\n";
+
+  // The block states
+  Object.entries(getBlockStates(block)).forEach(([key, value]) => {
+    const color = propertyTypeColor[typeof value];
+    info += `\n§o§7${key}§r§8: ${color}${value}`;
+  });
+
+  // Seperator
+  info += "\n";
+
+  // Additional block tags
+  block.getTags().forEach((v) => (info += "\n§d#" + v));
+  player.onScreenDisplay.setActionBar(info);
+}
 
 /*============================================================================*\
   Utility functions
 \*============================================================================*/
 
-const record: Record<string, Record<string, string>> = {};
-
-/**
- * Message a player into their actionbar
- * @param msg The message
- * @param player The player to message
- */
-async function message(msg: string, player: Player) {
-  return new Promise((res, rej) => {
-    system.run(() => {
-      try {
-        res(player.runCommand(
-          `titleraw @s actionbar {"rawtext":[{"text":${JSON.stringify(msg)}}]}`
-        ));
-      }
-      catch (e) {
-        rej(e);
-      }
-    });
-  });
-}
+const currentProperty: WeakMap<Player, Map<string, string>> = new WeakMap();
+const blockStatesCache: WeakMap<Block, BlockStatesMap> = new WeakMap();
 
 /**
  * Returns all the block states of a block.
  * @param block The block.
- * @returns Record<string, BlockStateValue>
+ * @returns BlockStatesMap
  */
-function getBlockStates(block: Block): Record<string, BlockStateValue> {
+function getBlockStates(block: Block): BlockStatesMap {
+  if (blockStatesCache.has(block)) {
+    return blockStatesCache.get(block);
+  }
+
   const states = block.permutation.getAllStates() || {};
-  if (block.canContainLiquid(LiquidType.Water))
+  if (block.canContainLiquid(LiquidType.Water)) {
     states["waterlogged"] = block.isWaterlogged;
+  }
+
+  blockStatesCache.set(block, states);
   return states;
 }
 
@@ -185,8 +268,7 @@ function getBlockStates(block: Block): Record<string, BlockStateValue> {
  * @returns BlockStateValue[]
  */
 function getStateValidValues(state: string): BlockStateValue[] {
-  if (state == "waterlogged")
-    return [false, true];
+  if (state === "waterlogged") return [false, true];
   return BlockStates.get(state).validValues;
 }
 
@@ -194,25 +276,35 @@ function getStateValidValues(state: string): BlockStateValue[] {
  * Set a block's state.
  * @param block The block to modify.
  * @param state The state property to set.
- * @param val The value to set.
+ * @param value The value to set.
  * @returns Promise
  */
-function setBlockState(block: Block, state: string, val: BlockStateValue): Promise<undefined> {
-  return new Promise<undefined>((res, rej) => {
-      system.run(() => {
-        try {
-          if (state == "waterlogged")
-            block.setWaterlogged(val as boolean);
-          else
-            block.setPermutation(block.permutation.withState(
-              state as keyof BlockStateSuperset, val));
-          res(undefined);
-        }
-        catch (e) {
-          rej(e);
-        }
-      });
-    });
+function setBlockState(
+  block: Block,
+  state: string,
+  value: BlockStateValue
+): Promise<null> {
+  function setState(resolve: Function, reject: Function) {
+    try {
+      if (state === "waterlogged") {
+        block.setWaterlogged(value as boolean);
+        return;
+      }
+
+      const newStates = block.permutation.withState(
+        state as keyof BlockStateSuperset,
+        value
+      );
+      block.setPermutation(newStates);
+      blockStatesCache.get(block)[state] = value;
+
+      resolve(null);
+    } catch (error) {
+      reject(error);
+    }
+  }
+
+  return new Promise(setState);
 }
 
 /**
@@ -223,9 +315,12 @@ function setBlockState(block: Block, state: string, val: BlockStateValue): Promi
  * @returns The current selected property or undefined
  */
 function getCurrentProperty(player: Player, block: string): string | undefined {
-  if (!(player.id in record))
-    record[player.id] = {};
-  return record[player.id][block];
+  if (!currentProperty.has(player)) {
+    currentProperty.set(player, new Map());
+    return undefined;
+  }
+
+  return currentProperty.get(player).get(block);
 }
 
 /**
@@ -233,12 +328,18 @@ function getCurrentProperty(player: Player, block: string): string | undefined {
  * the interacting player
  * @param player The player
  * @param block The block ID
- * @param val The new property name
+ * @param value The new property name
  */
-function setCurrentProperty(player: Player, block: string, val: string): void {
-  if (!(player.id in record))
-    record[player.id] = {};
-  record[player.id][block] = val;
+function setCurrentProperty(
+  player: Player,
+  block: string,
+  value: string
+): void {
+  if (!currentProperty.has(player)) {
+    currentProperty.set(player, new Map());
+  }
+
+  currentProperty.get(player).set(block, value);
 }
 
 /**
@@ -248,26 +349,17 @@ function setCurrentProperty(player: Player, block: string, val: string): void {
  * @returns Whatever that function will return
  */
 function safeCall<A extends any[], R>(
-    func: (...args: A) => R,
-    ...args: A
-  ): R | undefined {
+  func: Callback<A, R>,
+  ...args: A
+): R | undefined {
+  try {
+    return func.apply({}, args);
+  } catch (error) {
+    let msg = `${ERROR_MESSAGE_PREFIX}${error}`;
+    if (error instanceof Error && error?.stack) msg += `\n${error.stack}`;
 
-    try {
-      return func.apply({}, args);
-    }
-    catch (e) {
-      let msg = "DEBUG STICK ERROR\n";
-      msg    += "Please report this issue on GitHub:\n";
-      msg    += "  https://github.com/vytdev/debug-stick/issues/new\n";
-      msg    += "\n";
-
-      msg += e;
-
-      if (e instanceof Error && e?.stack)
-        msg += `\n${e.stack}`;
-
-      console.error(msg);
-    }
+    console.error(msg);
+  }
 }
 
 /**
@@ -275,10 +367,20 @@ function safeCall<A extends any[], R>(
  * @param func The function to wrap
  * @returns A function
  */
-function safeCallWrapper<A extends any[], R>(
-    func: (...args: A) => R
-  ): ((...args: A) => R | undefined) {
-    return function (...args: A): R | undefined {
-      return safeCall(func, ...args);
-    }
+function safeCallWrapper<A extends any[], R>(func: Callback<A, R>) {
+  return function (...args: A): R | undefined {
+    return safeCall(func, ...args);
+  };
+}
+
+/**
+ * Block viwer helper
+ * @param block
+ * @returns Liquid | Gas | Solid
+ */
+function getBlockMatterState(block: Block) {
+  if (block.isLiquid) return "Liquid";
+  if (block.isAir) return "Gas";
+
+  return "Solid";
 }
