@@ -161,7 +161,10 @@ function updateBlockProperty(player: Player, block: Block) {
 
   // Handle each type separately for more efficent next value search;
   if (typeof currentValue === "number") {
-    newValue = (currentValue + 1) % valids.length;
+    const min = Math.min(...(valids as number[]));
+    const index = (currentValue - min + 1) % valids.length;
+
+    newValue = valids[index];
   } else if (typeof currentValue === "boolean") {
     newValue = !currentValue;
   } else {
