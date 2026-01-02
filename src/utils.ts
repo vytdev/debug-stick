@@ -19,9 +19,7 @@ export async function message(msg: string, player: Player) {
   return new Promise((res, rej) => {
     system.run(() => {
       try {
-        res(player.runCommand(
-          `titleraw @s actionbar {"rawtext":[{"text":${JSON.stringify(msg)}}]}`
-        ));
+        res(player.onScreenDisplay.setActionBar(msg));
       }
       catch (e) {
         rej(e);
