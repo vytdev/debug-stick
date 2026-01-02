@@ -91,7 +91,7 @@ This add-on is open-source! This means its source code is available to the
 public. You can find the source code here:
 https://github.com/vytdev/debug-stick
 
-Copyright &copy; 2023-2025 Vincent Yanzee J. Tan.
+Copyright &copy; 2023-2026 Vincent Yanzee J. Tan.
 Licensed under the MIT License.
 
 
