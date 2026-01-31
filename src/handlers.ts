@@ -73,7 +73,7 @@ export function displayBlockInfo(player: Player, block: Block) {
 
   // Basic block info.
   info += '\n§4' + block.x + ' §a' + block.y + ' §9' + block.z;
-  info += '\n§o§7redstone power§8: §c' + (block.getRedstonePower() ?? 0);
+  info += '\n§o§7redstone power§r§8: §c' + (block.getRedstonePower() ?? 0);
 
   // The set block states.
   for (const [stateName, value] of Object.entries(getStatesOfBlock(block))) {
