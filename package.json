@@ -8,7 +8,7 @@
     "watch": "node tool.js watch"
   },
   "dependencies": {
-    "@minecraft/server": "^2.4.0"
+    "@minecraft/server": "^2.5.0"
   },
   "devDependencies": {
     "jszip": "^3.10.1",

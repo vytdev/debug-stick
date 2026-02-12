@@ -11,7 +11,7 @@ import tsconfig from './tsconfig.json' with { type: 'json' };
 import manifest from './pack/manifest.json' with { type: 'json' };
 
 const packVersion = manifest.header.version;
-const packMinEngineVersion = manifest.header.min_engine_version.join('.');
+const packMinEngineVersion = manifest.header.min_engine_version;
 const actionTable = {};
 
 
