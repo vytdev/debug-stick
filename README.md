@@ -1,7 +1,3 @@
-> [!NOTE]
-> Updates will roll out shortly on CurseForge and MCPEDL within the next 24
-> &ndash; 48 hours.
-
 <div align="center">
 
 ![icon][img-logo]
