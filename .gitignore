@@ -3,6 +3,5 @@ debug-stick*.mcpack
 debug-stick*.zip
 
 node_modules
-package-lock.json
 
 pack/scripts/*
