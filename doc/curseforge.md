@@ -87,17 +87,18 @@ Make sure you download the version that matches your Minecraft version.
 
 ## 📎 Version Naming
 
-We have used the same version name as the corresponding Minecraft Bedrock
-release since 26.x.
+We've matched our add-on version numbers with Minecraft Bedrock since 26.0.
 
-The first two numbers indicate which Minecraft Bedrock version the add-on is
-compatible with. If your Minecraft version is lower than that, it may not work.
+- **1st &amp; 2nd numbesr**: The Minecraft version the add-on works with. If
+  your game is older, it might not work.
+- **3rd number**: The add-on's patch number. It doesn't have to match your
+  Minecraft version &mdash; only the first two numbers matter.
 
-The third number indicates the add-on's patch version. Please note that we do
-not strictly follow semantic versioning (SemVer).
+Have an older Minecraft version (1.20.0 &ndash; 1.21.132)? Check our
+[old releases][curseforge-dl], which use use the old version style starting
+with *1.x.x*.
 
-If you want an add-on that is compatible with Minecraft 1.20 to 1.21, you will
-need to download it using the old versioning convention.
+This new version system makes it easier to find the correct version.
 
 ## 📜 License
 
