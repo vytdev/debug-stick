@@ -79,7 +79,7 @@ Make sure you download the version that matches your Minecraft version.
 
 We've matched our add-on version numbers with Minecraft Bedrock since 26.0.
 
-- **1st &amp; 2nd numbesr**: The Minecraft version the add-on works with. If
+- **1st &amp; 2nd number**: The Minecraft version the add-on works with. If
   your game is older, it might not work.
 - **3rd number**: The add-on's patch number. It doesn't have to match your
   Minecraft version &mdash; only the first two numbers matter.
