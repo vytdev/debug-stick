@@ -1,3 +1,7 @@
+> [!NOTE]
+> We will be updating our version naming convention in upcoming releases.
+> Please read [this section](#-version-naming) for more details.
+
 <div align="center">
 
 ![icon][img-logo]
@@ -70,6 +74,20 @@ This add-on supports Minecraft Bedrock **1.20.0 and above**.
 - Enable `Beta APIs` for MCBE <1.21.70
 
 Make sure you download the version that matches your Minecraft version.
+
+## 📎 Version Naming
+
+We have used the same version name as the corresponding Minecraft Bedrock
+release since 26.x.
+
+The first two numbers indicate which Minecraft Bedrock version the add-on is
+compatible with. If your Minecraft version is lower than that, it may not work.
+
+The third number indicates the add-on's patch version. Please note that we do
+not strictly follow semantic versioning (SemVer).
+
+If you want an add-on that is compatible with Minecraft 1.20 to 1.21, you will
+need to download it using the old versioning convention.
 
 ## 🎉 Support
 
