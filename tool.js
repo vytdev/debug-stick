@@ -72,12 +72,8 @@ actionTable['pack'] = async () => {
   // name format for github
   await zipFolder('pack', 'debug-stick.zip');
   fs.copyFile('debug-stick.zip', 'debug-stick.mcpack');
-  // name format for archiving
-  fs.copyFile('debug-stick.zip',
-      `debug-stick-${packVersion}.mcpack`);
-  // name format for curseforge
-  fs.copyFile('debug-stick.zip',
-      `debug-stick-${packVersion}-r${packMinEngineVersion}.mcpack`);
+  // name format for archiving and curseforge
+  fs.copyFile('debug-stick.zip', `debug-stick-${packVersion}.mcpack`);
   console.log('created distribution packages');
 };
 
