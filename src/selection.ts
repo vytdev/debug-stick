@@ -7,21 +7,24 @@
  * See LICENSE for the full terms.
  */
 
-import type { BlockType, StateName } from './types';
+import {
+  BlockType,
+  PropName
+} from './context.js';
 
 
 // TODO: try dynamic properties
-const record: Record<string, Record<BlockType, StateName>> = {};
+const record: Record<string, Record<BlockType, PropName>> = {};
 
 /**
  * @class
- * Manages the selected states of a debug stick item.
+ * Manages the selected properties of a debug stick item.
  */
-export class DebugStateSelections {
+export class DebugPropertySelections {
 
   /**
    * @constructor
-   * Creates a new DebugStateSelections instance.
+   * Creates a new {@link DebugPropertySelections} instance.
    * @param id The persistence ID.
    */
   constructor(id: string) {
@@ -37,29 +40,29 @@ export class DebugStateSelections {
 
   /**
    * @private
-   * A table of selected block states.
+   * A table of selected block properties.
    */
-  private _selections: Record<BlockType, StateName>;
+  private _selections: Record<BlockType, PropName>;
 
 
   /**
-   * Get the currently selected state of the debug stick tool for the given
+   * Get the currently selected prop of the debug stick tool for the given
    * block type.
    * @param blockType The block type identifier.
-   * @returns The selected state or null if not yet set.
+   * @returns The selected prop or null if not yet set.
    */
-  getSelectedStateForBlock(blockType: BlockType): StateName | null {
+  getForBlock(blockType: BlockType): PropName | null {
     return this._selections[blockType] ?? null;
   }
 
 
   /**
-   * Set the currently selected state of the debug stick tool for the given
+   * Set the currently selected prop of the debug stick tool for the given
    * block type.
    * @param blockType The block type identifier.
-   * @param stateName The name of the block state to be set as selected.
+   * @param prop The name of the property to be set as selected.
    */
-  setSelectedStateForBlock(blockType: BlockType, stateName: StateName): void {
-    this._selections[blockType] = stateName;
+  setForBlock(blockType: BlockType, prop: PropName): void {
+    this._selections[blockType] = prop;
   }
 }

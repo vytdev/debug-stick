@@ -7,25 +7,37 @@
  * See LICENSE for the full terms.
  */
 
-import { Player, system } from '@minecraft/server';
+import {
+  system
+} from '@minecraft/server';
 
 
 /**
- * Message a player into their actionbar
- * @param msg The message
- * @param player The player to message
+ * Defer the execution of a function.
+ * @param func The function to delay.
+ * @param args Arguments.
+ * @returns Promise with the result of the function.
  */
-export async function message(msg: string, player: Player) {
+export function defer<A extends any[], R>(
+    func: (...args: A) => R, ...args: A): Promise<R>
+{
   return new Promise((res, rej) => {
     system.run(() => {
-      try {
-        res(player.onScreenDisplay.setActionBar(msg));
-      }
-      catch (e) {
-        rej(e);
-      }
-    });
-  });
+      try { res(func.apply({}, args)); }
+      catch (e) { rej(e); }
+    })
+  })
+}
+
+
+/**
+ * Cycle through an array.
+ * @param arr The array.
+ * @param curr The current value in the array.
+ * @returns Next value.
+ */
+export function cycleArray<T>(arr: Array<T>, curr: T): T {
+  return arr[(arr.indexOf(curr) + 1) % arr.length];
 }
 
 
@@ -33,12 +45,13 @@ export async function message(msg: string, player: Player) {
  * Safely call a function. Catch errors into content log
  * @param func The function
  * @param args Arguments of the function
- * @returns Whatever that function will return
+ * @returns [isError, result]
  */
 export function safeCall<A extends any[], R>(
-    func: (...args: A) => R, ...args: A): R | undefined {
+    func: (...args: A) => R, ...args: A): [false, R] | [true, string]
+{
   try {
-    return func.apply({}, args);
+    return [false, func.apply({}, args)];
   }
   catch (e) {
     let msg = 'DEBUG STICK ERROR\n';
@@ -52,18 +65,6 @@ export function safeCall<A extends any[], R>(
       msg += `\n${e.stack}`;
 
     console.error(msg);
-  }
-}
-
-
-/**
- * Safe call wrapper function.
- * @param func The function to wrap
- * @returns A function
- */
-export function safeCallWrapper<A extends any[], R>(
-    func: (...args: A) => R): ((...args: A) => R | undefined) {
-  return function (...args: A): R | undefined {
-    return safeCall(func, ...args);
+    return [true, msg];
   }
 }

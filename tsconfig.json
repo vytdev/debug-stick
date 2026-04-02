@@ -12,13 +12,10 @@
     "lib": [ "es2020", "dom" ],
     "preserveConstEnums": true,
     "sourceMap": false,
-    "outDir": "./pack/scripts",
+    "outDir": "./BP/scripts",
     "declaration": false,
     "allowJs": true,
     "baseUrl": "./src"
   },
-  "include": [
-    "./src"
-  ]
+  "include": ["./src"]
 }
-

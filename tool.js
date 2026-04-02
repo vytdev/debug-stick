@@ -8,7 +8,7 @@ import JSZip from 'jszip';
 import { isAsyncFunction } from 'util/types';
 
 import tsconfig from './tsconfig.json' with { type: 'json' };
-import manifest from './pack/manifest.json' with { type: 'json' };
+import manifest from './BP/manifest.json' with { type: 'json' };
 
 const packVersion = manifest.header.version;
 const packMinEngineVersion = manifest.header.min_engine_version;
@@ -69,12 +69,10 @@ actionTable['clean'] = async () => {
 
 /* --- PACK --- */
 actionTable['pack'] = async () => {
-  const zipName = `debug-stick.${packVersion}.zip`;
   const mcName =  `debug-stick.${packVersion}.mcpack`;
   // name format for github
-  await zipFolder('pack', zipName);
-  fs.copyFile(zipName, mcName);
-  console.log('created distribution packages');
+  await zipFolder('BP', mcName);
+  console.log('created distribution package');
 };
 
 
