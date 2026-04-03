@@ -8,5 +8,7 @@
  */
 
 import { enableDebugStick } from './debug-stick.js';
+import { enableDebugStickUI } from './debug-stick-ui.js';
 
 enableDebugStick();
+enableDebugStickUI();

@@ -7,29 +7,46 @@
  * See LICENSE for the full terms.
  */
 
-import { Block, BlockPermutation, Player, system } from '@minecraft/server';
-import { ModalFormData } from '@minecraft/server-ui';
-import { message } from './utils.js';
-import { getStatesOfBlock, getStateValidValues } from './state.js';
-import type { StateName, StateValue } from './types';
+import {
+  BlockPermutation,
+  PlayerInteractWithBlockBeforeEvent,
+  system,
+  world,
+} from '@minecraft/server';
+
+import {
+  ModalFormData,
+} from '@minecraft/server-ui';
+
+import {
+  DebugStickContext,
+  PropName,
+  PropValue,
+} from './context.js';
+import { defer, safeCall } from './utils.js';
+
+import config from './config.js';
+
+
+export const DEBUG_STICK_UI_ID = 'vyt:debug_stick_ui';
 
 
 // TODO: clean all of these
 
 /**
  * Open the Debug Stick UI form.
- * @param player The player to open the UI for.
- * @param block The working block.
+ * @param ctx
  */
-export function openUI(player: Player, block: Block): void {
-  const typeId = block.typeId;
-  const currStates = getStatesOfBlock(block);
+export function openUI(ctx: DebugStickContext<PlayerInteractWithBlockBeforeEvent>): void
+{
+  const typeId = ctx.block.typeId;
+  const currStates = ctx.getAllProps();
   const stateNameList = Object.keys(currStates);
   const form = new ModalFormData();
 
   form.title('§6Debug Stick UI§r');
   form.label('This is an experimental feature.\n' +
-             'Debug Stick v26.10.1-beta8');
+             'Debug Stick v' + config.version);
   form.label(`Modifying states of block: §l§b${typeId}§r`);
 
   for (const stateName of stateNameList) {
@@ -41,13 +58,13 @@ export function openUI(player: Player, block: Block): void {
   form.submitButton('Apply Changes');
 
   system.run(() => {
-    form.show(player).then(r => {
+    form.show(ctx.player).then(r => {
       if (r.canceled || !r.formValues) return;
       const newStateObj: any = {};
 
       let i = 0;
       for (const stateName of stateNameList) {
-        const validVals = getStateValidValues(stateName);
+        const validVals = DebugStickContext.getPropValidValues(stateName);
         const selVal = validVals[r.formValues[i++ + 2] as number];
         // BUG:
         //
@@ -70,20 +87,63 @@ export function openUI(player: Player, block: Block): void {
       }
 
       delete newStateObj['waterlogged'];  // temporary
-      block.setPermutation(BlockPermutation.resolve(typeId, newStateObj));
+      ctx.block.setPermutation(BlockPermutation.resolve(typeId, newStateObj));
 
       // DEBUG
-      message(JSON.stringify(newStateObj), player);
+      ctx.message(JSON.stringify(newStateObj));
     })
   });
 }
 
 
-export function addStateToForm(form: ModalFormData, stateName: StateName,
-                               currValue: StateValue): void
+export function addStateToForm(form: ModalFormData, stateName: PropName,
+                               currValue: PropValue): void
 {
-  const validVals = getStateValidValues(stateName);
+  const validVals = DebugStickContext.getPropValidValues(stateName);
   form.dropdown(stateName, validVals.map(String), {
     defaultValueIndex: validVals.indexOf(currValue),
   });
+}
+
+
+
+let isEnabled = false;
+let blockInteractListener: any;
+
+
+/**
+ * Registers event listeners for vyt:debug_stick.
+ */
+export function enableDebugStickUI() {
+  if (isEnabled)
+    return;
+  isEnabled = true;
+
+  // Short tap/click triggers.
+  blockInteractListener = world.beforeEvents
+      .playerInteractWithBlock.subscribe(ev =>
+  {
+    if (ev.itemStack?.typeId != DEBUG_STICK_UI_ID)
+      return;
+    ev.cancel = true;
+    const ctx = new DebugStickContext(ev.block, ev.player, ev);
+    defer(() => {
+      let isError, result;
+      [isError, result] = safeCall(openUI, ctx);
+      if (isError)
+        ev.player.sendMessage('§c' + result);
+      });
+  });
+}
+
+
+/**
+ * Deregisters event listeners for vyt:debug_stick.
+ */
+export function disableDebugStickUI() {
+  if (!isEnabled)
+    return;
+  isEnabled = false;
+  world.beforeEvents.playerInteractWithBlock
+        .unsubscribe(blockInteractListener);
 }

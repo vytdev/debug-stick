@@ -116,7 +116,7 @@ export function displayBlockInfo(ctx:
 
 
 
-let isEnabled = false 
+let isEnabled = false;
 let blockInteractListener: any;
 let breakBlockListener: any;
 
