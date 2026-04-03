@@ -26,7 +26,7 @@ export default {
   /**
    * The current version.
    */
-  packVersion: '26.10.1-beta.9',
+  packVersion: '26.10.1-beta.10',
 
   /**
    * Minimum Minecraft version required.
@@ -57,6 +57,6 @@ export default {
    */
   dependencies: {
     '@minecraft/server': '2.6.0',
-    //'@minecraft/server-ui': '2.0.0',
+    '@minecraft/server-ui': '2.0.0',
   }
 };
