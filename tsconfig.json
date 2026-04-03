@@ -12,7 +12,7 @@
     "lib": [ "es2020", "dom" ],
     "preserveConstEnums": true,
     "sourceMap": false,
-    "outDir": "./BP/scripts",
+    "outDir": "./dist/js-out",
     "declaration": false,
     "allowJs": true,
     "baseUrl": "./src"

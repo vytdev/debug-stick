@@ -1,4 +1,4 @@
 # exclude files
-debug-stick.*.mcpack
-BP/scripts/*
+dist/
+*.mcpack
 node_modules

@@ -11,6 +11,8 @@ import {
   system
 } from '@minecraft/server';
 
+import config from './config.js';
+
 
 /**
  * Defer the execution of a function.
@@ -57,6 +59,13 @@ export function safeCall<A extends any[], R>(
     let msg = 'DEBUG STICK ERROR\n';
     msg    += 'Please report this issue on GitHub:\n';
     msg    += '  https://github.com/vytdev/debug-stick/issues/new\n';
+    msg    += '\n';
+    msg    += 'add-on version: '        + config.version + '\n',
+    msg    += '@minecraft/server: '     + config.apiVer + '\n';
+    msg    += '@minecraft/server-ui: '  + config.uiApiVer + '\n';
+    msg    += 'min_engine_version: '    + config.minMcVer + '\n';
+    msg    += 'branch: '                + config.branch + '\n';
+    msg    += 'commit: '                + config.shCommit + '\n';
     msg    += '\n';
 
     msg += e;

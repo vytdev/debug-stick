@@ -3,9 +3,9 @@
   "type": "module",
   "scripts": {
     "test": "npx tsc",
-    "build": "node tool.js build pack",
-    "clean": "node tool.js clean",
-    "watch": "node tool.js watch"
+    "build": "./tool build pack",
+    "clean": "./tool clean",
+    "watch": "./tool watch"
   },
   "dependencies": {
     "@minecraft/server": "^2.6.0",
