@@ -60,7 +60,7 @@ export function safeCall<A extends any[], R>(
     msg    += 'Please report this issue on GitHub:\n';
     msg    += '  https://github.com/vytdev/debug-stick/issues/new\n';
     msg    += '\n';
-    msg    += 'add-on version: '        + config.version + '\n',
+    msg    += 'add-on version: '        + config.version + '\n';
     msg    += '@minecraft/server: '     + config.apiVer + '\n';
     msg    += '@minecraft/server-ui: '  + config.uiApiVer + '\n';
     msg    += 'min_engine_version: '    + config.minMcVer + '\n';
