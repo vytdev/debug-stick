@@ -124,25 +124,6 @@ export class DebugStickContext<T> {
 
 
   /**
-   * Sets all the properties of a block.
-   * Note: Can't work in read-only mode; defer execution.
-   * @param propMap Map of property values.
-   */
-  setProps(propMap: PropMap): void {
-    const stateMap: PropMap = {};      // really BlockStateSuperset
-    // BlockPermutation.resolve() does not tolerate unknown state names
-    for (const propName in propMap)
-      if (propName != 'waterlogged')
-        stateMap[propName] = propMap[propName];
-    // set .isWaterlogged separately
-    if ('waterlogged' in propMap)
-      this.block.setWaterlogged(propMap['waterlogged'] as boolean);
-    this.block.setPermutation(
-        BlockPermutation.resolve(this.block.typeId, propMap));
-  }
-
-
-  /**
    * Sends a message to player's actionbar.
    * Note: Can't work in read-only mode; defer execution.
    * @param msg The message.
