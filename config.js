@@ -26,7 +26,7 @@ export default {
   /**
    * The current version.
    */
-  packVersion: '26.10.1-beta.13',
+  packVersion: '26.10.1-rc.1',
 
   /**
    * Minimum Minecraft version required.
@@ -44,8 +44,9 @@ export default {
   packDescription: [
     '§7v{version} ({shCommit}) MCBE {minMcVer}+§r',
     '',
-    'Java §dDebug Stick§r ported to Minecraft: Bedrock Edition, by §bvytdev§r',
-    'Use §a/give @s vyt:debug_stick§r to get the Debug Stick.',
+    'Java §aDebug Stick§r ported to Minecraft: Bedrock Edition, by §bvytdev§r',
+    'Use §e/give @s vyt:debug_stick§r to get the §dDebug Stick§r.',
+    'Use §e/give @s vyt:debug_stick_ui§r to get the §6Debug Stick UI§r.',
     '',
     'Report bugs here: §bhttps://github.com/vytdev/debug-stick/§r',
     'Copyright (c) 2023-2026 Vincent Yanzee J. Tan',
