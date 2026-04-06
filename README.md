@@ -4,7 +4,8 @@
 
 <div align="center">
 
-![icon][img-logo]
+<img src="https://raw.github.com/vytdev/debug-stick/master/BP/pack_icon.png"
+  width="128px" height="128px" />
 
 # Debug Stick
 
@@ -116,5 +117,4 @@ Licensed under the MIT License.
 [releases]: https://github.com/vytdev/debug-stick/releases
 [dload]: https://www.curseforge.com/minecraft-bedrock/addons/debug-stick/files
 
-[img-logo]: https://raw.github.com/vytdev/debug-stick/master/BP/pack_icon.png
 [img-blk-viewer]: https://raw.github.com/vytdev/debug-stick/master/doc/img1.jpeg
