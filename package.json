@@ -8,7 +8,7 @@
     "watch": "./tool watch"
   },
   "dependencies": {
-    "@minecraft/server": "^2.6.0",
+    "@minecraft/server": "^1.19.0",
     "@minecraft/server-ui": "^2.0.0",
     "@minecraft/vanilla-data": "^1.26.12"
   },

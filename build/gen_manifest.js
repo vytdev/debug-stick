@@ -17,13 +17,13 @@ const MODULE_SCRIPT_UUID = '86c7bab4-aed9-4297-5f0c-d5d62bd30be1';
  */
 export function genManifest() {
   return {
-    format_version: 3,
+    format_version: 2,
 
     header: {
       name:                 formatString(config.packName, subTab),
       description:          formatString(config.packDescription, subTab),
       version:              config.packVersion,
-      min_engine_version:   config.minMcVersion,
+      min_engine_version:   config.minMcVersion.split('.').map(v => +v),
       uuid:                 PACK_UUID,
     },
 
@@ -31,14 +31,14 @@ export function genManifest() {
       {
         description:        'behaviour',
         type:               'data',
-        version:            '1.0.0',
+        version:            [1,0,0],
         uuid:               MODULE_DATA_UUID,
       },
       {
         description:        'scripting',
         type:               'script',
         language:           'javascript',
-        version:            '1.0.0',
+        version:            [1,0,0],
         uuid:               MODULE_SCRIPT_UUID,
         entry:              config.scriptEntry,
       }
