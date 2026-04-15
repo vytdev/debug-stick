@@ -19,6 +19,7 @@ import {
 import {
   BlockStateSuperset
 } from '@minecraft/vanilla-data';
+import { defer } from 'utils';
 
 // NOTE: For Java parity, we have to specially handle the 'waterlogged'
 // property since it doesn't exist as a block state.
@@ -48,6 +49,61 @@ export type PropValue = string | number | boolean;
  */
 export type PropMap = Record<PropName, PropValue>;
 
+
+/**
+ * Creates an entirely new block permutation.
+ * @param block The reference block.
+ * @param name The name of the block state to set.
+ * @param value The value for the state.
+ * @returns A new BlockPermutation.
+ */
+export function makeNewPermutation(
+  block: Block,
+  name: keyof BlockStateSuperset,
+  value: string | number | boolean): BlockPermutation
+{
+  return BlockPermutation.resolve(
+      block.typeId, block.permutation.getAllStates()
+    ).withState(name, value);
+}
+
+
+/**
+ * Executes a full block state update instead of a simple permutation swap.
+ * Note: blocks with other components/special NBT should not use this.
+ * @param block The block to update.
+ * @param stateName The block state to change.
+ * @param value The value for the state.
+ */
+export function fullBlockStateUpdate(
+    block: Block, stateName: keyof BlockStateSuperset, value: PropValue): void
+{
+  // fixes #24
+  const loc = block.location;
+  const dim = block.dimension;
+  const canBeWaterlogged = block.canContainLiquid(LiquidType.Water);
+  const isWaterlogged = block.isWaterlogged;
+  const newPermu = makeNewPermutation(block, stateName, value);
+
+  dim.setBlockType(loc, 'minecraft:air');
+
+  // update the block next tick
+  defer(() => {
+    dim.setBlockPermutation(loc, newPermu);
+    if (canBeWaterlogged)
+      dim.getBlock(loc)?.setWaterlogged(isWaterlogged);
+  });
+}
+
+
+/**
+ * List of blocks requiring fullBlockStateUpdate.
+ */
+export const blocksRequiringFullUpdate = [
+  'minecraft:piston',
+  'minecraft:sticky_piston',
+  'minecraft:observer',
+];
 
 
 /**
@@ -117,28 +173,12 @@ export class DebugStickContext<T> {
   setBlockProp(prop: PropName, value: PropValue): void {
     if (prop == 'waterlogged')
       this.block.setWaterlogged(value as boolean);
+    else if (blocksRequiringFullUpdate.includes(this.block.typeId))
+      fullBlockStateUpdate(this.block,
+          prop as keyof BlockStateSuperset, value);
     else
       this.block.setPermutation(this.block.permutation.withState(
           prop as keyof BlockStateSuperset, value));
-  }
-
-
-  /**
-   * Sets all the properties of a block.
-   * Note: Can't work in read-only mode; defer execution.
-   * @param propMap Map of property values.
-   */
-  setProps(propMap: PropMap): void {
-    const stateMap: PropMap = {};      // really BlockStateSuperset
-    // BlockPermutation.resolve() does not tolerate unknown state names
-    for (const propName in propMap)
-      if (propName != 'waterlogged')
-        stateMap[propName] = propMap[propName];
-    // set .isWaterlogged separately
-    if ('waterlogged' in propMap)
-      this.block.setWaterlogged(propMap['waterlogged'] as boolean);
-    this.block.setPermutation(
-        BlockPermutation.resolve(this.block.typeId, propMap));
   }
 
 
