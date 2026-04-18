@@ -26,7 +26,7 @@ export default {
   /**
    * The current version.
    */
-  packVersion: '26.10.2',
+  packVersion: '26.10.2-rc.4',
 
   /**
    * Minimum Minecraft version required.

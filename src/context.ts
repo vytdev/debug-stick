@@ -99,11 +99,15 @@ export function fullBlockStateUpdate(
 /**
  * List of blocks requiring fullBlockStateUpdate.
  */
-export const blocksRequiringFullUpdate = [
+export const blocksRequiringFullUpdate = new Set([
   'minecraft:piston',
   'minecraft:sticky_piston',
   'minecraft:observer',
-];
+  'minecraft:powered_repeater',
+  'minecraft:unpowered_repeater',
+  'minecraft:powered_comparator',
+  'minecraft:unpowered_comparator',
+]);
 
 
 /**
@@ -173,7 +177,7 @@ export class DebugStickContext<T> {
   setBlockProp(prop: PropName, value: PropValue): void {
     if (prop == 'waterlogged')
       this.block.setWaterlogged(value as boolean);
-    else if (blocksRequiringFullUpdate.includes(this.block.typeId))
+    else if (blocksRequiringFullUpdate.has(this.block.typeId))
       fullBlockStateUpdate(this.block,
           prop as keyof BlockStateSuperset, value);
     else
