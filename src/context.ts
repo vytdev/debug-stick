@@ -71,6 +71,7 @@ export function makeNewPermutation(
 /**
  * Executes a full block state update instead of a simple permutation swap.
  * Note: blocks with other components/special NBT should not use this.
+ * Workaround for MCPE-238217 and gh-24.
  * @param block The block to update.
  * @param stateName The block state to change.
  * @param value The value for the state.
@@ -78,7 +79,7 @@ export function makeNewPermutation(
 export function fullBlockStateUpdate(
     block: Block, stateName: keyof BlockStateSuperset, value: PropValue): void
 {
-  // fixes #24
+  // work around #24
   const loc = block.location;
   const dim = block.dimension;
   const canBeWaterlogged = block.canContainLiquid(LiquidType.Water);
@@ -97,7 +98,7 @@ export function fullBlockStateUpdate(
 
 
 /**
- * List of blocks requiring fullBlockStateUpdate.
+ * List of blocks requiring {@link fullBlockStateUpdate}.
  */
 export const blocksRequiringFullUpdate = new Set([
   'minecraft:piston',
@@ -107,6 +108,7 @@ export const blocksRequiringFullUpdate = new Set([
   'minecraft:unpowered_repeater',
   'minecraft:powered_comparator',
   'minecraft:unpowered_comparator',
+  'minecraft:redstone_torch',
 ]);
 
 
