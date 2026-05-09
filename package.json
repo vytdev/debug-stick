@@ -8,9 +8,9 @@
     "watch": "./tool watch"
   },
   "dependencies": {
-    "@minecraft/server": "^2.6.0",
+    "@minecraft/server": "^2.7.0",
     "@minecraft/server-ui": "^2.0.0",
-    "@minecraft/vanilla-data": "^1.26.12"
+    "@minecraft/vanilla-data": "^1.26.20"
   },
   "devDependencies": {
     "jszip": "^3.10.1",
