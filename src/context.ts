@@ -108,7 +108,6 @@ export const blocksRequiringFullUpdate = new Set([
   'minecraft:unpowered_repeater',
   'minecraft:powered_comparator',
   'minecraft:unpowered_comparator',
-  'minecraft:redstone_torch',
 ]);
 
 
