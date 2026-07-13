@@ -24,6 +24,7 @@ This add-on lets you mess with the "block properties" in-game, just like the
 Java-exclusive debug stick item. Tap blocks to change their states. Long-press
 to choose what you wanna change. Sneak and tap to get detailed info.
 
+
 ## ✨ What Can You Do?
 
 - **Tap blocks** to cycle through their states (e.g., waterlog chests, lit
@@ -32,6 +33,7 @@ to choose what you wanna change. Sneak and tap to get detailed info.
   block, type of wood, etc.)
 - **Sneak + tap** to show detailed info about a block (more on that below!)
 - **Actionbar messages** help you figure out what you're changing!
+
 
 ## 🔍 Block Viewer (Bonus Feature!)
 
@@ -53,6 +55,7 @@ Very useful for mapmakers, redstoners, or just curious players!
 > [!NOTE]
 > This feature requires Minecraft Bedrock 1.20.60 or higher
 
+
 ## 🎁 How To Get It?
 
 1. [Download the add-on][releases] for your Minecraft version.
@@ -66,6 +69,7 @@ Very useful for mapmakers, redstoners, or just curious players!
 7. Type `/give @s vyt:debug_stick`, or find it in the Creative menu.
 8. That's it!
 
+
 ## 🧱 Version Compatibility
 
 This add-on supports Minecraft Bedrock **1.20.0 and above**.
@@ -75,6 +79,7 @@ This add-on supports Minecraft Bedrock **1.20.0 and above**.
 - Enable `Beta APIs` for MCBE <1.21.70
 
 Make sure you download the version that matches your Minecraft version.
+
 
 ## 📎 Version Naming
 
@@ -93,12 +98,6 @@ This new version system makes it easier to find the correct version.
 
 *We don't strictly follow [SemVer](https://semver.org).*
 
-## 🎉 Support
-
-**If this helped you out, consider supporting me on Ko-fi**! Every bit helps
-me stay in school and keep the add-on updated! ❤️
-
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/W7W51I5VSO)
 
 ## 📜 License
 
