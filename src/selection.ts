@@ -10,7 +10,7 @@
 import {
   BlockType,
   PropName
-} from './context.js';
+} from './helpers.js';
 
 
 // TODO: try dynamic properties
