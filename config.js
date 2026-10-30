@@ -26,12 +26,12 @@ export default {
   /**
    * The current version.
    */
-  packVersion: '26.50.0',
+  packVersion: '26.60.0',
 
   /**
    * Minimum Minecraft version required.
    */
-  minMcVersion: '1.26.50',
+  minMcVersion: '1.26.60',
 
   /**
    * Script entry point.
@@ -56,7 +56,7 @@ export default {
    * Dependencies.
    */
   dependencies: {
-    '@minecraft/server': '2.10.0',
+    '@minecraft/server': '2.11.0',
     //'@minecraft/server-ui': '2.0.0',
   }
 };
